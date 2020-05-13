@@ -43,7 +43,7 @@ function setup() {
 
 let iterationCpt = 0;
 function draw() {
-    background(235, 235, 235);
+    background(0, 0, 0);
     frameRate(30);
 
     if (runIterations) {

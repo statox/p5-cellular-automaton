@@ -13,8 +13,6 @@ function Grid() {
                 return count;
             }, 0);
 
-            // console.log({index: c.index, count: aliveNeighbors, neig: JSON.stringify(neighborsIndex)});
-
             if (c.isAlive && rules.survive.has(aliveNeighbors) ) {
                 newStates.push(c.survive);
             } else if (!c.isAlive && rules.born.has(aliveNeighbors)) {

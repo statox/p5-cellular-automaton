@@ -22,11 +22,9 @@ function Cell(index, isAlive) {
             }
 
             fill(...[ R, G, B ].map(c => Math.floor(c*10)));
-        } else {
-            fill(0, 0, 0);
+            rect(x, y, w, h);
         }
 
-        rect(x, y, w, h);
     }
 
     this.getNeighborsIndex = () => {
