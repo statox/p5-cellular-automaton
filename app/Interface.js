@@ -6,6 +6,7 @@ const initializeInterface = () => {
         document.getElementById("inputSurvive" + v).checked = true;
     });
 
+    document.getElementById("inputEdgeWrapping").checked = true;
     document.getElementById("play-pause-btn").textContent = 'Pause';
     document.getElementById("inputROWS").value = ROWS;
     document.getElementById("inputCOLS").value = COLS;
@@ -41,4 +42,8 @@ const setSize = () => {
     ROWS = Number(document.getElementById("inputROWS").value);
     COLS = Number(document.getElementById("inputCOLS").value);
     resetGrid();
+}
+
+const updateEdgeWrapping = (button) => {
+    edgeWrapping = button.checked;
 }

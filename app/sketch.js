@@ -8,6 +8,7 @@ let cells = [];
 let rules;
 let grid;
 let runIterations;
+let edgeWrapping;
 
 // Dimensions of the grid
 let ROWS;
@@ -33,6 +34,7 @@ function setup() {
     ROWS=100;
     COLS=100;
     nbCells = ROWS * COLS;
+    edgeWrapping = false;
 
     for (var i=0; i<nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));

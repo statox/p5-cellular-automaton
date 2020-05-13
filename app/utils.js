@@ -10,17 +10,19 @@ const indexToXY = (index) => {
 }
 
 const IJToIndex = ({i, j}) => {
-    if (i < 0) {
-        i = COLS-1;
-    }
-    if (j < 0) {
-        j = ROWS-1;
-    }
-    if (i === COLS) {
-        i = 0;
-    }
-    if (j === ROWS) {
-        j = 0;
+    if (edgeWrapping) {
+        if (i < 0) {
+            i = COLS-1;
+        }
+        if (j < 0) {
+            j = ROWS-1;
+        }
+        if (i === COLS) {
+            i = 0;
+        }
+        if (j === ROWS) {
+            j = 0;
+        }
     }
 
     return j * COLS + i;

@@ -42,7 +42,13 @@ function Cell(index, isAlive) {
             { i: i+1, j: j+1},
         ];
 
-        return neighborsCoords.map(IJToIndex)
+        if (edgeWrapping) {
+            return neighborsCoords.map(IJToIndex)
+        }
+
+        return neighborsCoords.filter(({i, j}) => {
+            return i > -1 && j > -1 && i < COLS && j < ROWS
+        }).map(IJToIndex);
     }
 
     this.born = () => {
