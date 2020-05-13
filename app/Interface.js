@@ -5,6 +5,9 @@ const initializeInterface = () => {
     rules.survive.forEach(v => {
         document.getElementById("inputSurvive" + v).checked = true;
     });
+
+    document.getElementById("play-pause-btn").textContent = 'Pause';
+
 };
 
 const resetSimulation = () => {
@@ -26,3 +29,8 @@ const updateSurviveRule = (button, value) => {
         rules.survive.delete(value);
     }
 };
+
+const toggleRun = () => {
+    runIterations = !runIterations;
+    document.getElementById("play-pause-btn").textContent = runIterations ? 'Pause' : 'Play';
+}

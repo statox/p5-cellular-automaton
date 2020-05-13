@@ -11,6 +11,7 @@ const nbCells = ROWS * COLS;
 
 let rules;
 let grid;
+let runIterations;
 
 function resetGrid() {
     cells.forEach(cell => {
@@ -28,6 +29,8 @@ function setup() {
 
     rules = new Rules([3], [2, 3]);
     grid = new Grid();
+    runIterations = true;
+
     for (var i=0; i<nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));
     }
@@ -40,7 +43,9 @@ function draw() {
     background(235, 235, 235);
     frameRate(30);
 
-    grid.doIteration();
+    if (runIterations) {
+        grid.doIteration();
+    }
     cells.forEach(c => c.show(grid.maxAge));
 
     iterationCpt++;
