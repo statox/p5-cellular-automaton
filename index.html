@@ -94,6 +94,24 @@
                       </tr>
                       <tr class="row">
                           <td class="col-sm-2">
+                              <p>Neighbors selection</p>
+                          </td>
+                          <td class="col-sm-7">
+                              <span>Define which cells are selected as neighbors</span>
+                              <span>Moore: 8 neighbors. All direction</span>
+                              <span>Cardinal: 4 neighbors. North, South, East and West only</span>
+                          </td>
+                          <td class="col-sm-3">
+                              <span> Moore
+                                  <input id="inputNeighborsMoore" type="checkbox" onclick='updateNeighborsAlgorithm(this, "MOORE");'/>
+                              </span>
+                              <span> Cardinal
+                                  <input id="inputNeighborsCardinal" type="checkbox" onclick='updateNeighborsAlgorithm(this, "CARDINAL");'/>
+                              </span>
+                          </td>
+                      </tr>
+                      <tr class="row">
+                          <td class="col-sm-2">
                               <p>Birth conditions</p>
                           </td>
                           <td class="col-sm-7">

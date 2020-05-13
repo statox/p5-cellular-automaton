@@ -29,18 +29,26 @@ function Cell(index, isAlive) {
 
     this.getNeighborsIndex = () => {
         const { i, j } = indexToIJ(this.index);
-        const neighborsCoords = [
-            { i: i-1, j: j-1},
-            { i: i, j: j-1},
-            { i: i+1, j: j-1},
+        const neighborsCoords = [];
 
-            { i: i-1, j: j},
-            { i: i+1, j: j},
+        if (neighborsAlgorithm === 'MOORE') {
+            neighborsCoords.push({ i: i-1, j: j-1});
+            neighborsCoords.push({ i: i, j: j-1});
+            neighborsCoords.push({ i: i+1, j: j-1});
 
-            { i: i-1, j: j+1},
-            { i: i, j: j+1},
-            { i: i+1, j: j+1},
-        ];
+            neighborsCoords.push({ i: i-1, j: j});
+            neighborsCoords.push({ i: i+1, j: j});
+
+            neighborsCoords.push({ i: i-1, j: j+1});
+            neighborsCoords.push({ i: i, j: j+1});
+            neighborsCoords.push({ i: i+1, j: j+1});
+        }
+        if (neighborsAlgorithm === 'CARDINAL') {
+            neighborsCoords.push({ i: i, j: j-1});
+            neighborsCoords.push({ i: i-1, j: j});
+            neighborsCoords.push({ i: i+1, j: j});
+            neighborsCoords.push({ i: i, j: j+1});
+        }
 
         if (edgeWrapping) {
             return neighborsCoords.map(IJToIndex)

@@ -4,11 +4,11 @@ const D=900;
 // Cells of the game
 let cells = [];
 
-
 let rules;
 let grid;
 let runIterations;
 let edgeWrapping;
+let neighborsAlgorithm;
 
 // Dimensions of the grid
 let ROWS;
@@ -35,6 +35,7 @@ function setup() {
     COLS=100;
     nbCells = ROWS * COLS;
     edgeWrapping = false;
+    neighborsAlgorithm = 'MOORE';
 
     for (var i=0; i<nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));

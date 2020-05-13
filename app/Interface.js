@@ -11,6 +11,8 @@ const initializeInterface = () => {
     document.getElementById("inputROWS").value = ROWS;
     document.getElementById("inputCOLS").value = COLS;
 
+    document.getElementById("inputNeighborsMoore").checked = true;
+    document.getElementById("inputNeighborsCardinal").checked = false;
 };
 
 const resetSimulation = () => {
@@ -47,3 +49,26 @@ const setSize = () => {
 const updateEdgeWrapping = (button) => {
     edgeWrapping = button.checked;
 }
+
+// TODO: I'm not ashamed of this... but I'm not proud either
+const updateNeighborsAlgorithm = (button, algo) => {
+    if (button.checked) {
+        if (algo === 'MOORE') {
+            document.getElementById("inputNeighborsCardinal").checked = false;
+            neighborsAlgorithm = 'MOORE';
+        }
+        if (algo === 'CARDINAL') {
+            document.getElementById("inputNeighborsMoore").checked = false;
+            neighborsAlgorithm = 'CARDINAL';
+        }
+    } else {
+        if (algo === 'MOORE') {
+            document.getElementById("inputNeighborsMoore").checked = false;
+            neighborsAlgorithm = 'CARDINAL';
+        }
+        if (algo === 'CARDINAL') {
+            document.getElementById("inputNeighborsCardinal").checked = false;
+            neighborsAlgorithm = 'MOORE';
+        }
+    }
+};
