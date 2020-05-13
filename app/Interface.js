@@ -7,6 +7,8 @@ const initializeInterface = () => {
     });
 
     document.getElementById("play-pause-btn").textContent = 'Pause';
+    document.getElementById("inputROWS").value = ROWS;
+    document.getElementById("inputCOLS").value = COLS;
 
 };
 
@@ -33,4 +35,10 @@ const updateSurviveRule = (button, value) => {
 const toggleRun = () => {
     runIterations = !runIterations;
     document.getElementById("play-pause-btn").textContent = runIterations ? 'Pause' : 'Play';
+}
+
+const setSize = () => {
+    ROWS = Number(document.getElementById("inputROWS").value);
+    COLS = Number(document.getElementById("inputCOLS").value);
+    resetGrid();
 }

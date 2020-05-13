@@ -1,25 +1,25 @@
 // Dimensions of the canvas and the table
 const D=900;
 
-// Dimensions of the grid
-const ROWS=100;
-const COLS=100;
-
 // Cells of the game
-const cells = [];
-const nbCells = ROWS * COLS;
+let cells = [];
+
 
 let rules;
 let grid;
 let runIterations;
 
+// Dimensions of the grid
+let ROWS;
+let COLS;
+let nbCells;
+
 function resetGrid() {
-    cells.forEach(cell => {
-        cell.die();
-        if (Math.random() < 0.5) {
-            cell.born();
-        }
-    });
+    nbCells = ROWS * COLS;
+    cells = [];
+    for (var i=0; i<nbCells; i++) {
+        cells.push(new Cell(i, Math.random() < 0.5));
+    }
 }
 
 function setup() {
@@ -30,6 +30,9 @@ function setup() {
     rules = new Rules([3], [2, 3]);
     grid = new Grid();
     runIterations = true;
+    ROWS=100;
+    COLS=100;
+    nbCells = ROWS * COLS;
 
     for (var i=0; i<nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));
