@@ -12,6 +12,15 @@ const nbCells = ROWS * COLS;
 let rules;
 let grid;
 
+function resetGrid() {
+    cells.forEach(cell => {
+        cell.die();
+        if (Math.random() < 0.5) {
+            cell.born();
+        }
+    });
+}
+
 function setup() {
     // Create the canvas and put it in its div
     var myCanvas = createCanvas(D, D);

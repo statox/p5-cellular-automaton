@@ -7,6 +7,10 @@ const initializeInterface = () => {
     });
 };
 
+const resetSimulation = () => {
+    resetGrid();
+};
+
 const updateBirthRule = (button, value) => {
     if (button.checked) {
         rules.born.add(value);
@@ -21,7 +25,4 @@ const updateSurviveRule = (button, value) => {
     } else {
         rules.survive.delete(value);
     }
-
-    console.log('new survive rules');
-    console.log(rules.survive);
 };
