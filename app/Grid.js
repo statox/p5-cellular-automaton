@@ -15,9 +15,9 @@ function Grid() {
 
             // console.log({index: c.index, count: aliveNeighbors, neig: JSON.stringify(neighborsIndex)});
 
-            if (c.isAlive && rules.survive.includes(aliveNeighbors) ) {
+            if (c.isAlive && rules.survive.has(aliveNeighbors) ) {
                 newStates.push(c.survive);
-            } else if (!c.isAlive && rules.born.includes(aliveNeighbors)) {
+            } else if (!c.isAlive && rules.born.has(aliveNeighbors)) {
                 newStates.push(c.born);
             } else {
                 newStates.push(c.die);

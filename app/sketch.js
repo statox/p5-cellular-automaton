@@ -13,13 +13,17 @@ let rules;
 let grid;
 
 function setup() {
-    createCanvas(D, D);
+    // Create the canvas and put it in its div
+    var myCanvas = createCanvas(D, D);
+    myCanvas.parent("canvasDiv");
 
     rules = new Rules([3], [2, 3]);
     grid = new Grid();
     for (var i=0; i<nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));
     }
+
+    initializeInterface();
 }
 
 let iterationCpt = 0;
