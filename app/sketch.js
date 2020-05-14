@@ -8,26 +8,6 @@ let settings;
 let rules;
 let grid;
 
-function changePreset(presetIndex) {
-    const newPreset = PRESETS[presetIndex];
-    const { wrap, B, S } = newPreset;
-
-    settings.neighborsAlgorithm = newPreset.neighborsAlgorithm;
-    updateInterfaceNeighborsAlgorithmFromValue();
-
-    setNeighborsToSelect();
-    updateInterfaceSelectedNeighborsFromValue();
-
-    rules.born = new Set(B);
-    rules.survive = new Set(S);
-    updateInterfaceRulesFromValues();
-
-    settings.edgeWrapping = wrap;
-    updateInterfaceEdgeWrappingFromValue();
-
-    resetLoopDetection();
-}
-
 function resetLoopDetection() {
     grid.resetLoopDetection();
 }

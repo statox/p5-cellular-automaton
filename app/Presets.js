@@ -72,4 +72,46 @@ const PRESETS = [
         wrap: true, neighborsAlgorithm: 'CARDINAL',
         B: [2, 3], S: [2]
     },
+    {
+        name: 'Slider',
+        description: 'Stabilizes on sliding lines of cells',
+        wrap: true, neighborsToSelect: {
+            N:   true,
+            W:   false,
+            S:   false,
+            E:   false,
+            NW:  false,
+            NE:  false,
+            SW:  false,
+            SE:  false,
+            SELF:false,
+        },
+        B: [1], S: [1]
+    },
 ];
+
+const changePreset = (presetIndex) => {
+    const newPreset = PRESETS[presetIndex];
+    const { wrap, B, S } = newPreset;
+
+    if (newPreset.neighborsAlgorithm) {
+        settings.neighborsAlgorithm = newPreset.neighborsAlgorithm;
+        updateInterfaceNeighborsAlgorithmFromValue();
+
+        setNeighborsToSelect();
+        updateInterfaceSelectedNeighborsFromValue();
+    } else if (newPreset.neighborsToSelect) {
+        settings.neighborsToSelect = newPreset.neighborsToSelect;
+        updateInterfaceSelectedNeighborsFromValue();
+    }
+
+
+    rules.born = new Set(B);
+    rules.survive = new Set(S);
+    updateInterfaceRulesFromValues();
+
+    settings.edgeWrapping = wrap;
+    updateInterfaceEdgeWrappingFromValue();
+
+    resetLoopDetection();
+}
