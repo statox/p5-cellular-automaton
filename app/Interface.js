@@ -1,3 +1,13 @@
+const updateInterfaceSelectedNeighborsFromValue = () => {
+    Object.keys(neighborsToSelect).forEach(key => {
+        document.getElementById("neighbors-" + key).classList.remove('btn-success');
+
+        if (neighborsToSelect[key]) {
+        document.getElementById("neighbors-" + key).classList.add('btn-success');
+        }
+    });
+};
+
 const updateInterfaceRulesFromValues = () => {
     for (let v=0; v<9; v++) {
         document.getElementById("inputBirth" + v).checked = false;
@@ -32,6 +42,7 @@ const initializeInterface = () => {
     updateInterfaceRulesFromValues();
     updateInterfaceEdgeWrappingFromValue();
     updateInterfaceNeighborsAlgorithmFromValue();
+    updateInterfaceSelectedNeighborsFromValue();
 
     document.getElementById("play-pause-btn").textContent = 'Pause';
     document.getElementById("inputROWS").value = ROWS;
@@ -109,6 +120,8 @@ const updateNeighborsAlgorithm = (button, algo) => {
         }
     }
 
+    setNeighborsToSelect();
+    updateInterfaceSelectedNeighborsFromValue();
     resetLoopDetection();
 };
 
@@ -135,4 +148,9 @@ const updatePreset = (select) => {
     const chosenPresetIndex = select.options[select.selectedIndex].value;
     document.getElementById("preset-description").innerText = PRESETS[chosenPresetIndex].description;
     changePreset(chosenPresetIndex);
+}
+
+const updateNeighborSelection = (neighbor) => {
+    neighborsToSelect[neighbor] = !neighborsToSelect[neighbor];
+    updateInterfaceSelectedNeighborsFromValue();
 }

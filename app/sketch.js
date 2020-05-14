@@ -8,8 +8,10 @@ let rules;
 let grid;
 let runIterations;
 let edgeWrapping;
-let neighborsAlgorithm;
 let loopDetection;
+
+let neighborsAlgorithm;
+let neighborsToSelect;
 
 // Dimensions of the grid
 let ROWS;
@@ -22,6 +24,8 @@ function changePreset(presetIndex) {
 
     neighborsAlgorithm = newPreset.neighborsAlgorithm;
     updateInterfaceNeighborsAlgorithmFromValue();
+
+    setNeighborsToSelect();
 
     rules.born = new Set(B);
     rules.survive = new Set(S);
@@ -59,8 +63,10 @@ function setup() {
     COLS=100;
     nbCells = ROWS * COLS;
     edgeWrapping = true;
-    neighborsAlgorithm = 'MOORE';
     loopDetection = true;
+
+    neighborsAlgorithm = 'MOORE';
+    setNeighborsToSelect();
 
     for (var i=0; i<nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));

@@ -31,23 +31,34 @@ function Cell(index, isAlive) {
         const { i, j } = indexToIJ(this.index);
         const neighborsCoords = [];
 
-        if (neighborsAlgorithm === 'MOORE') {
+        if (neighborsToSelect['NW']) {
             neighborsCoords.push({ i: i-1, j: j-1});
-            neighborsCoords.push({ i: i, j: j-1});
-            neighborsCoords.push({ i: i+1, j: j-1});
-
-            neighborsCoords.push({ i: i-1, j: j});
-            neighborsCoords.push({ i: i+1, j: j});
-
-            neighborsCoords.push({ i: i-1, j: j+1});
-            neighborsCoords.push({ i: i, j: j+1});
-            neighborsCoords.push({ i: i+1, j: j+1});
         }
-        if (neighborsAlgorithm === 'CARDINAL') {
+        if (neighborsToSelect['N']) {
             neighborsCoords.push({ i: i, j: j-1});
+        }
+        if (neighborsToSelect['NE']) {
+            neighborsCoords.push({ i: i+1, j: j-1});
+        }
+
+        if (neighborsToSelect['W']) {
             neighborsCoords.push({ i: i-1, j: j});
+        }
+        if (neighborsToSelect['SELF']) {
+            neighborsCoords.push({ i: i, j: j});
+        }
+        if (neighborsToSelect['E']) {
             neighborsCoords.push({ i: i+1, j: j});
+        }
+
+        if (neighborsToSelect['SW']) {
+            neighborsCoords.push({ i: i-1, j: j+1});
+        }
+        if (neighborsToSelect['S']) {
             neighborsCoords.push({ i: i, j: j+1});
+        }
+        if (neighborsToSelect['SE']) {
+            neighborsCoords.push({ i: i+1, j: j+1});
         }
 
         if (edgeWrapping) {

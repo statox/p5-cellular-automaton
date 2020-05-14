@@ -31,6 +31,7 @@
     <script src="app/Rules.js"></script>
     <script src="app/Interface.js"></script>
     <script src="app/Presets.js"></script>
+    <script src="app/Neighbors.js"></script>
 
     <!-- Github fork me ribbon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
@@ -120,12 +121,35 @@
                               <span>Cardinal: 4 neighbors. North, South, East and West only</span>
                           </td>
                           <td class="col-sm-3">
-                              <span> Moore
-                                  <input id="inputNeighborsMoore" type="checkbox" onclick='updateNeighborsAlgorithm(this, "MOORE");'/>
-                              </span>
-                              <span> Cardinal
-                                  <input id="inputNeighborsCardinal" type="checkbox" onclick='updateNeighborsAlgorithm(this, "CARDINAL");'/>
-                              </span>
+                              <div>
+                                  <div>
+                                      <span> Moore
+                                          <input id="inputNeighborsMoore" type="checkbox" onclick='updateNeighborsAlgorithm(this, "MOORE");'/>
+                                      </span>
+                                      <span> Cardinal
+                                          <input id="inputNeighborsCardinal" type="checkbox" onclick='updateNeighborsAlgorithm(this, "CARDINAL");'/>
+                                      </span>
+                                  </div>
+                                  <div>
+                                      <table class="table table-bordered">
+                                          <tr>
+                                              <td><button id="neighbors-NW" type="button" class="btn" onclick="updateNeighborSelection('NW')">NW</button></td>
+                                              <td><button id="neighbors-N"  type="button" class="btn" onclick="updateNeighborSelection('N')">N</button></td>
+                                              <td><button id="neighbors-NE" type="button" class="btn" onclick="updateNeighborSelection('NE')">NE</button></td>
+                                          </tr>
+                                          <tr>
+                                              <td><button id="neighbors-W"    type="button" class="btn" onclick="updateNeighborSelection('W')">W</button></td>
+                                              <td><button id="neighbors-SELF" type="button" class="btn" onclick="updateNeighborSelection('SELF')">Self</button></td>
+                                              <td><button id="neighbors-E"    type="button" class="btn" onclick="updateNeighborSelection('E')">E</button></td>
+                                          </tr>
+                                          <tr>
+                                              <td><button id="neighbors-SW" type="button" class="btn" onclick="updateNeighborSelection('SW')">SW</button></td>
+                                              <td><button id="neighbors-S"  type="button" class="btn" onclick="updateNeighborSelection('S')">S</button></td>
+                                              <td><button id="neighbors-SE" type="button" class="btn" onclick="updateNeighborSelection('SE')">SE</button></td>
+                                          </tr>
+                                      </table>
+                                  </div>
+                              </div>
                           </td>
                       </tr>
                       <tr class="row">
