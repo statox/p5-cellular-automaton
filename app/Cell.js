@@ -6,8 +6,12 @@ function Cell(index, isAlive) {
     this.show = (maxAge) => {
         const {x, y, w, h} = indexToXY(this.index);
         const relativeAge = 76 - map(this.age, 0, maxAge, 0, 76);
+        const { invertVisualization } = settings;
 
-        if (this.isAlive) {
+        if (
+            (!invertVisualization && this.isAlive) ||
+            (invertVisualization && !this.isAlive)
+        ){
             let [R, G, B] = [5, 5, 5];
 
             if (relativeAge < 25) {

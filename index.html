@@ -43,7 +43,7 @@
       <div class="container">
           <!-- Jumbotron header -->
           <div class="jumbotron" style="text-align:center">
-              <h1>Cellular Automata</h1>
+              <h1>Cellular Automaton</h1>
               <p>A tribute to John Conway</p>
           </div>
 
@@ -55,33 +55,11 @@
                   <tbody>
                       <tr class="row">
                           <td class="col-sm-2">
-                              <p>Reset grid</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>Reset the simulation with random cells</span>
-                          </td>
-                          <td class="col-sm-3">
-                              <button class="btn btn-default" type="button" onclick="resetSimulation()">Reset</button>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Control</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>Play or pause the simulation</span>
-                          </td>
-                          <td class="col-sm-3">
-                              <button id="play-pause-btn" class="btn btn-default" type="button" onclick="toggleRun()"></button>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Size of the grid</p>
+                              <p>Size of the grid and control</p>
                           </td>
                           <td class="col-sm-7">
                               <span>Change the size of the grid</span>
-                              <span><i class="reset-simulation-warning"><br/>*Modifying this setting resets the simulation</i></span>
+                              <span><i class="reset-simulation-warning"><br/>Modifying this setting resets the simulation with random cells</i></span>
                           </td>
                           <td class="col-sm-3">
                               <form>
@@ -98,7 +76,8 @@
                                       </div>
                                   </div>
 
-                                  <button class="btn btn-default" type="button" onclick="setSize()">Reset</button>
+                                  <button id="play-pause-btn" class="btn btn-default" type="button" onclick="toggleRun()"></button>
+                                  <button class="btn btn-danger" type="button" onclick="setSize()">Reset</button>
                               </form>
                           </td>
                       </tr>
@@ -123,6 +102,18 @@
                           </td>
                           <td class="col-sm-3">
                               <button id="inputEdgeWrapping" type="button" class="btn" onclick="updateEdgeWrapping(this);">Edge Wrapping</button>
+                          </td>
+                      </tr>
+                      <tr class="row">
+                          <td class="col-sm-2">
+                              <p>Invert visualization</p>
+                          </td>
+                          <td class="col-sm-7">
+                              <span>When enabled don't show the alive cells and colorize the dead ones</span>
+                              <spane>This can create some better visualizations for some automaton</span>
+                          </td>
+                          <td class="col-sm-3">
+                              <button id="inputInvertVis" type="button" class="btn" onclick="updateInvertVis(this);">Invert visualization</button>
                           </td>
                       </tr>
                       <tr class="row">
@@ -218,8 +209,10 @@
           <div class="row">
               <h1 id="simulation">Automaton</h1>
               <hr/>
-              <div id="loop-detected-notice" class="invisible">Loop detected</div>
-              <div id="loop-size-detected-notice" class="invisible">Loop size:</div>
+              <div style="font-size: x-large" >
+                  <span id="loop-detected-notice" class="invisible">Loop detected.</span>
+                  <span id="loop-size-detected-notice" class="invisible">Loop size:</span>
+              </div>
               <div id="automaton-content" class="collapse in">
                   <div class="col-md-6" id="canvasDiv"></div>
               </div>

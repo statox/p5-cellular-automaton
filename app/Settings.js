@@ -7,4 +7,5 @@ function Settings() {
     this.loopDetection = true;
     this.neighborsAlgorithm = 'MOORE';
     this.neighborsToSelect;
+    this.invertVisualization = false;
 }

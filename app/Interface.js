@@ -29,6 +29,14 @@ const updateInterfaceEdgeWrappingFromValue = () => {
     }
 };
 
+const updateInterfaceInvertVisFromValue = () => {
+    if (settings.invertVisualization) {
+        document.getElementById("inputInvertVis").classList.add('btn-success');
+    } else {
+        document.getElementById("inputInvertVis").classList.remove('btn-success');
+    }
+};
+
 const updateInterfaceNeighborsAlgorithmFromValue = () => {
     const buttons = document.getElementsByClassName('algo-selection');
     for (var i=0; i<buttons.length; i++) {
@@ -44,6 +52,7 @@ const updateInterfaceNeighborsAlgorithmFromValue = () => {
 const initializeInterface = () => {
     updateInterfaceRulesFromValues();
     updateInterfaceEdgeWrappingFromValue();
+    updateInterfaceInvertVisFromValue();
     updateInterfaceNeighborsAlgorithmFromValue();
     updateInterfaceSelectedNeighborsFromValue();
 
@@ -59,10 +68,6 @@ const initializeInterface = () => {
         document.getElementById("preset-select").appendChild(presetOption);
     });
     document.getElementById("preset-description").innerText = PRESETS[0].description;
-};
-
-const resetSimulation = () => {
-    resetGrid();
 };
 
 const updateBirthRule = (button, value) => {
@@ -102,6 +107,11 @@ const updateEdgeWrapping = (button) => {
     settings.edgeWrapping = !settings.edgeWrapping;
     updateInterfaceEdgeWrappingFromValue();
     resetLoopDetection();
+}
+
+const updateInvertVis = (button) => {
+    settings.invertVisualization = !settings.invertVisualization;
+    updateInterfaceInvertVisFromValue();
 }
 
 const updateNeighborsAlgorithm = (button, algo) => {
