@@ -1,8 +1,8 @@
 const updateInterfaceSelectedNeighborsFromValue = () => {
-    Object.keys(neighborsToSelect).forEach(key => {
+    Object.keys(settings.neighborsToSelect).forEach(key => {
         document.getElementById("neighbors-" + key).classList.remove('btn-success');
 
-        if (neighborsToSelect[key]) {
+        if (settings.neighborsToSelect[key]) {
         document.getElementById("neighbors-" + key).classList.add('btn-success');
         }
     });
@@ -22,7 +22,7 @@ const updateInterfaceRulesFromValues = () => {
 };
 
 const updateInterfaceEdgeWrappingFromValue = () => {
-    if (edgeWrapping) {
+    if (settings.edgeWrapping) {
         document.getElementById("inputEdgeWrapping").classList.add('btn-success');
     } else {
         document.getElementById("inputEdgeWrapping").classList.remove('btn-success');
@@ -33,7 +33,7 @@ const updateInterfaceNeighborsAlgorithmFromValue = () => {
     const buttons = document.getElementsByClassName('algo-selection');
     for (var i=0; i<buttons.length; i++) {
         const button = buttons[i];
-        if (button.value !== neighborsAlgorithm) {
+        if (button.value !== settings.neighborsAlgorithm) {
             buttons[i].classList.remove('btn-success');
         } else {
             buttons[i].classList.add('btn-success');
@@ -48,8 +48,8 @@ const initializeInterface = () => {
     updateInterfaceSelectedNeighborsFromValue();
 
     document.getElementById("play-pause-btn").textContent = 'Pause';
-    document.getElementById("inputROWS").value = ROWS;
-    document.getElementById("inputCOLS").value = COLS;
+    document.getElementById("inputROWS").value = settings.ROWS;
+    document.getElementById("inputCOLS").value = settings.COLS;
 
     PRESETS.forEach((preset, index) => {
         presetOption = document.createElement("option");
@@ -88,24 +88,24 @@ const updateSurviveRule = (button, value) => {
 };
 
 const toggleRun = () => {
-    runIterations = !runIterations;
-    document.getElementById("play-pause-btn").textContent = runIterations ? 'Pause' : 'Play';
+    settings.runIterations = !settings.runIterations;
+    document.getElementById("play-pause-btn").textContent = settings.runIterations ? 'Pause' : 'Play';
 }
 
 const setSize = () => {
-    ROWS = Number(document.getElementById("inputROWS").value);
-    COLS = Number(document.getElementById("inputCOLS").value);
+    settings.ROWS = Number(document.getElementById("inputROWS").value);
+    settings.COLS = Number(document.getElementById("inputCOLS").value);
     resetGrid();
 }
 
 const updateEdgeWrapping = (button) => {
-    edgeWrapping = !edgeWrapping;
+    settings.edgeWrapping = !settings.edgeWrapping;
     updateInterfaceEdgeWrappingFromValue();
     resetLoopDetection();
 }
 
 const updateNeighborsAlgorithm = (button, algo) => {
-    neighborsAlgorithm = button.value;
+    settings.neighborsAlgorithm = button.value;
 
     updateInterfaceNeighborsAlgorithmFromValue();
     setNeighborsToSelect();
@@ -139,6 +139,6 @@ const updatePreset = (select) => {
 }
 
 const updateNeighborSelection = (neighbor) => {
-    neighborsToSelect[neighbor] = !neighborsToSelect[neighbor];
+    settings.neighborsToSelect[neighbor] = !settings.neighborsToSelect[neighbor];
     updateInterfaceSelectedNeighborsFromValue();
 }

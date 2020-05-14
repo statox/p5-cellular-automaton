@@ -1,6 +1,7 @@
 const setNeighborsToSelect = () => {
+    const { neighborsAlgorithm } = settings;
     if (neighborsAlgorithm === 'MOORE') {
-        neighborsToSelect = {
+        settings.neighborsToSelect = {
             NW:  true,
             N:   true,
             NE:  true,
@@ -14,7 +15,7 @@ const setNeighborsToSelect = () => {
     }
 
     if (neighborsAlgorithm === 'CARDINAL') {
-        neighborsToSelect = {
+        settings.neighborsToSelect = {
             N:   true,
             W:   true,
             S:   true,
@@ -28,7 +29,7 @@ const setNeighborsToSelect = () => {
     }
 
     if (neighborsAlgorithm === 'DIAGONAL') {
-        neighborsToSelect = {
+        settings.neighborsToSelect = {
             NW: true,
             NE: true,
             SW: true,
@@ -42,7 +43,7 @@ const setNeighborsToSelect = () => {
     }
 
     if (neighborsAlgorithm === 'ECA') {
-        neighborsToSelect = {
+        settings.neighborsToSelect = {
             W:  true,
             E:  true,
             NW: false,

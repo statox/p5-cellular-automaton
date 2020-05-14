@@ -46,7 +46,7 @@ function Grid() {
             }
         });
 
-        if (loopDetection) {
+        if (settings.loopDetection) {
             if (this.previousStates.has(representation)) {
                 this.foundLoop = true;
                 this.loopSize = 0;

@@ -28,6 +28,7 @@ function Cell(index, isAlive) {
     }
 
     this.getNeighborsIndex = () => {
+        const { neighborsToSelect } = settings;
         const { i, j } = indexToIJ(this.index);
         const neighborsCoords = [];
 
@@ -61,12 +62,12 @@ function Cell(index, isAlive) {
             neighborsCoords.push({ i: i+1, j: j+1});
         }
 
-        if (edgeWrapping) {
+        if (settings.edgeWrapping) {
             return neighborsCoords.map(IJToIndex)
         }
 
         return neighborsCoords.filter(({i, j}) => {
-            return i > -1 && j > -1 && i < COLS && j < ROWS
+            return i > -1 && j > -1 && i < settings.COLS && j < settings.ROWS
         }).map(IJToIndex);
     }
 

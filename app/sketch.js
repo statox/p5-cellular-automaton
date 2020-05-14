@@ -4,25 +4,15 @@ const D=900;
 // Cells of the game
 let cells = [];
 
+let settings;
 let rules;
 let grid;
-let runIterations;
-let edgeWrapping;
-let loopDetection;
-
-let neighborsAlgorithm;
-let neighborsToSelect;
-
-// Dimensions of the grid
-let ROWS;
-let COLS;
-let nbCells;
 
 function changePreset(presetIndex) {
     const newPreset = PRESETS[presetIndex];
     const { wrap, B, S } = newPreset;
 
-    neighborsAlgorithm = newPreset.neighborsAlgorithm;
+    settings.neighborsAlgorithm = newPreset.neighborsAlgorithm;
     updateInterfaceNeighborsAlgorithmFromValue();
 
     setNeighborsToSelect();
@@ -32,7 +22,7 @@ function changePreset(presetIndex) {
     rules.survive = new Set(S);
     updateInterfaceRulesFromValues();
 
-    edgeWrapping = wrap;
+    settings.edgeWrapping = wrap;
     updateInterfaceEdgeWrappingFromValue();
 
     resetLoopDetection();
@@ -43,11 +33,11 @@ function resetLoopDetection() {
 }
 
 function resetGrid() {
-    nbCells = ROWS * COLS;
+    settings.nbCells = settings.ROWS * settings.COLS;
     cells = [];
 
     grid = new Grid();
-    for (var i=0; i<nbCells; i++) {
+    for (var i=0; i<settings.nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));
     }
 }
@@ -57,19 +47,14 @@ function setup() {
     var myCanvas = createCanvas(D, D);
     myCanvas.parent("canvasDiv");
 
+    settings = new Settings();
+
     rules = new Rules([3], [2, 3]);
     grid = new Grid();
-    runIterations = true;
-    ROWS=100;
-    COLS=100;
-    nbCells = ROWS * COLS;
-    edgeWrapping = true;
-    loopDetection = true;
 
-    neighborsAlgorithm = 'MOORE';
     setNeighborsToSelect();
 
-    for (var i=0; i<nbCells; i++) {
+    for (var i=0; i<settings.nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));
     }
 
@@ -81,7 +66,7 @@ function draw() {
     background(0, 0, 0);
     frameRate(30);
 
-    if (runIterations) {
+    if (settings.runIterations) {
         grid.doIteration();
     }
     cells.forEach(c => c.show(grid.maxAge));
