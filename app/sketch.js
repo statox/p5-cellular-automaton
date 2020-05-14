@@ -26,6 +26,7 @@ function changePreset(presetIndex) {
     updateInterfaceNeighborsAlgorithmFromValue();
 
     setNeighborsToSelect();
+    updateInterfaceSelectedNeighborsFromValue();
 
     rules.born = new Set(B);
     rules.survive = new Set(S);

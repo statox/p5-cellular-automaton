@@ -26,4 +26,32 @@ const setNeighborsToSelect = () => {
             SELF:false,
         };
     }
+
+    if (neighborsAlgorithm === 'DIAGONAL') {
+        neighborsToSelect = {
+            NW: true,
+            NE: true,
+            SW: true,
+            SE: true,
+            N:  false,
+            W:  false,
+            S:  false,
+            E:  false,
+            SELF:false,
+        };
+    }
+
+    if (neighborsAlgorithm === 'ECA') {
+        neighborsToSelect = {
+            W:  true,
+            E:  true,
+            NW: false,
+            NE: false,
+            SW: false,
+            SE: false,
+            N:  false,
+            S:  false,
+            SELF:false,
+        };
+    }
 };

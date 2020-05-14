@@ -9,9 +9,9 @@ Features I want to implement:
  - [ ] Statistics about the population: Number of cells alive, average age, oldest cell, etc...
  - [X] Interesting presets: Have a list of cool automaton for the user to choose
  - [ ] Preset saving: Have a way to store a cool automaton the user found
- - [ ] Neigbors choice interface: Have a grid to let the user choose which cells should be included as neighbors
+ - [X] Neigbors choice interface: Have a grid to let the user choose which cells should be included as neighbors
     - [ ] Have a list of presets (Moore, Cardinal, Diagonal, Same Line, etc)
-    - [ ] Possibility to include a cell in the list of its neighbors
+    - [X] Possibility to include a cell in the list of its neighbors
     - [ ] Possibility to choose neighbors of more than one row of distance
  - [ ] Invert visualization: Have a way to ligth the dead cells and turn the living ones black
  - [ ] Drawing and erasing: Have a way to set the alive/dead cells directly from the mouse

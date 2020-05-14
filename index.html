@@ -83,9 +83,25 @@
                               <span><i class="reset-simulation-warning"><br/>*Modifying this setting resets the simulation</i></span>
                           </td>
                           <td class="col-sm-3">
-                              Columns <input id="inputCOLS" type="number"/>
-                              Rows <input id="inputROWS" type="number"/>
-                              <button class="btn btn-default" type="button" onclick="setSize()">Reset</button>
+                              <!-- Columns <input id="inputCOLS" type="number"/> -->
+                              <!-- Rows <input id="inputROWS" type="number"/> -->
+
+                              <form>
+                                  <div class="form-group row">
+                                      <label for="columns" class="col-sm-5 col-form-label">Columns</label>
+                                      <div class="col-sm-5">
+                                          <input id="inputCOLS" type="number" class="form-control">
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <label for="rows" class="col-sm-5 col-form-label">Rows</label>
+                                      <div class="col-sm-5">
+                                          <input id="inputROWS" type="number" class="form-control">
+                                      </div>
+                                  </div>
+
+                                  <button class="btn btn-default" type="button" onclick="setSize()">Reset</button>
+                              </form>
                           </td>
                       </tr>
                       <tr class="row">
@@ -108,7 +124,7 @@
                               <span>Allow cells at the opposite sides of the grid to be considered as neigbors</span>
                           </td>
                           <td class="col-sm-3">
-                              <input id="inputEdgeWrapping" type="checkbox" onclick='updateEdgeWrapping(this);'/>
+                              <button id="inputEdgeWrapping" type="button" class="btn" onclick="updateEdgeWrapping(this);">Edge Wrapping</button>
                           </td>
                       </tr>
                       <tr class="row">
@@ -117,18 +133,20 @@
                           </td>
                           <td class="col-sm-7">
                               <span>Define which cells are selected as neighbors</span>
-                              <span>Moore: 8 neighbors. All direction</span>
-                              <span>Cardinal: 4 neighbors. North, South, East and West only</span>
+                              <ul>
+                                  <li>Moore: 8 neighbors. All direction</li>
+                                  <li>Cardinal: 4 neighbors. N, W, S and E only</li>
+                                  <li>Diagonal: 4 neighbors. NW, NE, SW and SE only</li>
+                                  <li>ECA: 2 neighbors. W and E</li>
+                              </ul>
                           </td>
                           <td class="col-sm-3">
                               <div>
                                   <div>
-                                      <span> Moore
-                                          <input id="inputNeighborsMoore" type="checkbox" onclick='updateNeighborsAlgorithm(this, "MOORE");'/>
-                                      </span>
-                                      <span> Cardinal
-                                          <input id="inputNeighborsCardinal" type="checkbox" onclick='updateNeighborsAlgorithm(this, "CARDINAL");'/>
-                                      </span>
+                                      <button id="algo-MOORE"    type="button" class="algo-selection btn" value="MOORE"    onclick="updateNeighborsAlgorithm(this)">Moore</button>
+                                      <button id="algo-CARDINAL" type="button" class="algo-selection btn" value="CARDINAL" onclick="updateNeighborsAlgorithm(this)">Cardinal</button>
+                                      <button id="algo-DIAGONAL" type="button" class="algo-selection btn" value="DIAGONAL" onclick="updateNeighborsAlgorithm(this)">Diagonal</button>
+                                      <button id="algo-ECA"      type="button" class="algo-selection btn" value="ECA"      onclick="updateNeighborsAlgorithm(this)">ECA</button>
                                   </div>
                                   <div>
                                       <table class="table table-bordered">

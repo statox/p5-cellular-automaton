@@ -22,19 +22,22 @@ const updateInterfaceRulesFromValues = () => {
 };
 
 const updateInterfaceEdgeWrappingFromValue = () => {
-    document.getElementById("inputEdgeWrapping").checked = edgeWrapping;
+    if (edgeWrapping) {
+        document.getElementById("inputEdgeWrapping").classList.add('btn-success');
+    } else {
+        document.getElementById("inputEdgeWrapping").classList.remove('btn-success');
+    }
 };
 
 const updateInterfaceNeighborsAlgorithmFromValue = () => {
-    document.getElementById("inputNeighborsMoore").checked = false;
-    document.getElementById("inputNeighborsCardinal").checked = false;
-    switch (neighborsAlgorithm) {
-        case 'MOORE':
-            document.getElementById("inputNeighborsMoore").checked = true;
-            break;
-        case 'CARDINAL':
-            document.getElementById("inputNeighborsCardinal").checked = true;
-            break;
+    const buttons = document.getElementsByClassName('algo-selection');
+    for (var i=0; i<buttons.length; i++) {
+        const button = buttons[i];
+        if (button.value !== neighborsAlgorithm) {
+            buttons[i].classList.remove('btn-success');
+        } else {
+            buttons[i].classList.add('btn-success');
+        }
     }
 };
 
@@ -96,32 +99,15 @@ const setSize = () => {
 }
 
 const updateEdgeWrapping = (button) => {
-    edgeWrapping = button.checked;
+    edgeWrapping = !edgeWrapping;
+    updateInterfaceEdgeWrappingFromValue();
     resetLoopDetection();
 }
 
-// TODO: I'm not ashamed of this... but I'm not proud either
 const updateNeighborsAlgorithm = (button, algo) => {
-    if (button.checked) {
-        if (algo === 'MOORE') {
-            document.getElementById("inputNeighborsCardinal").checked = false;
-            neighborsAlgorithm = 'MOORE';
-        }
-        if (algo === 'CARDINAL') {
-            document.getElementById("inputNeighborsMoore").checked = false;
-            neighborsAlgorithm = 'CARDINAL';
-        }
-    } else {
-        if (algo === 'MOORE') {
-            document.getElementById("inputNeighborsMoore").checked = false;
-            neighborsAlgorithm = 'CARDINAL';
-        }
-        if (algo === 'CARDINAL') {
-            document.getElementById("inputNeighborsCardinal").checked = false;
-            neighborsAlgorithm = 'MOORE';
-        }
-    }
+    neighborsAlgorithm = button.value;
 
+    updateInterfaceNeighborsAlgorithmFromValue();
     setNeighborsToSelect();
     updateInterfaceSelectedNeighborsFromValue();
     resetLoopDetection();
