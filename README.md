@@ -5,9 +5,9 @@ Using p5.js to play with cellular automaton.
 # TODO
 Features I want to implement:
 
- - [ ] Loop detection: Have a message saying when a loop has been detected and what is the length of the cycle
+ - [X] Loop detection: Have a message saying when a loop has been detected and what is the length of the cycle
  - [ ] Statistics about the population: Number of cells alive, average age, oldest cell, etc...
- - [ ] Interesting presets: Have a list of cool automaton for the user to choose
+ - [X] Interesting presets: Have a list of cool automaton for the user to choose
  - [ ] Preset saving: Have a way to store a cool automaton the user found
  - [ ] Neigbors choice interface: Have a grid to let the user choose which cells should be included as neighbors
     - [ ] Have a list of presets (Moore, Cardinal, Diagonal, Same Line, etc)
@@ -19,14 +19,3 @@ Features I want to implement:
  - [ ] Perf improvement: Initialize the list of neighbors for each cells at the initialization of the grid.
  - [ ] Visualization: Have a setting to merge some cells together to have a smaller definition and visualize the grid as if it was some leds
  - [ ] Visualization: Let's make it 3D!!
-
-# Cool presets to remember
-Wrap - Cardinal - B23S4567
-Wrap - Moore    - B12S4567
-Wrap - Moore    - B13S12456
-Wrap - Cardinal - B13S012
-Wrap - Cardinal - B13S134
-Wrap - Cardinal - B2345S124 => Interesting when adding/removing S3
-Wrap - Cardinal - B2345S23456
-Wrap - Cardinal - B2S23
-Wrap - Cardinal - B23S2

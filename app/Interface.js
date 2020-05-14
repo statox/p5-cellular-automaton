@@ -1,18 +1,50 @@
-const initializeInterface = () => {
+const updateInterfaceRulesFromValues = () => {
+    for (let v=0; v<9; v++) {
+        document.getElementById("inputBirth" + v).checked = false;
+        document.getElementById("inputSurvive" + v).checked = false;
+    }
     rules.born.forEach(v => {
         document.getElementById("inputBirth" + v).checked = true;
     });
     rules.survive.forEach(v => {
         document.getElementById("inputSurvive" + v).checked = true;
     });
+};
 
-    document.getElementById("inputEdgeWrapping").checked = true;
+const updateInterfaceEdgeWrappingFromValue = () => {
+    document.getElementById("inputEdgeWrapping").checked = edgeWrapping;
+};
+
+const updateInterfaceNeighborsAlgorithmFromValue = () => {
+    document.getElementById("inputNeighborsMoore").checked = false;
+    document.getElementById("inputNeighborsCardinal").checked = false;
+    switch (neighborsAlgorithm) {
+        case 'MOORE':
+            document.getElementById("inputNeighborsMoore").checked = true;
+            break;
+        case 'CARDINAL':
+            document.getElementById("inputNeighborsCardinal").checked = true;
+            break;
+    }
+};
+
+const initializeInterface = () => {
+    updateInterfaceRulesFromValues();
+    updateInterfaceEdgeWrappingFromValue();
+    updateInterfaceNeighborsAlgorithmFromValue();
+
     document.getElementById("play-pause-btn").textContent = 'Pause';
     document.getElementById("inputROWS").value = ROWS;
     document.getElementById("inputCOLS").value = COLS;
 
-    document.getElementById("inputNeighborsMoore").checked = true;
-    document.getElementById("inputNeighborsCardinal").checked = false;
+    PRESETS.forEach((preset, index) => {
+        presetOption = document.createElement("option");
+        presetOption.innerText = preset.name;
+        presetOption.value = index;
+
+        document.getElementById("preset-select").appendChild(presetOption);
+    });
+    document.getElementById("preset-description").innerText = PRESETS[0].description;
 };
 
 const resetSimulation = () => {
@@ -97,4 +129,10 @@ const updateLoopDetected = (showLoop, showLoopSize, loopSize) => {
         document.getElementById("loop-size-detected-notice").classList.remove("visible");
         document.getElementById("loop-size-detected-notice").classList.add("invisible");
     }
+}
+
+const updatePreset = (select) => {
+    const chosenPresetIndex = select.options[select.selectedIndex].value;
+    document.getElementById("preset-description").innerText = PRESETS[chosenPresetIndex].description;
+    changePreset(chosenPresetIndex);
 }

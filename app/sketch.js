@@ -16,6 +16,23 @@ let ROWS;
 let COLS;
 let nbCells;
 
+function changePreset(presetIndex) {
+    const newPreset = PRESETS[presetIndex];
+    const { wrap, B, S } = newPreset;
+
+    neighborsAlgorithm = newPreset.neighborsAlgorithm;
+    updateInterfaceNeighborsAlgorithmFromValue();
+
+    rules.born = new Set(B);
+    rules.survive = new Set(S);
+    updateInterfaceRulesFromValues();
+
+    edgeWrapping = wrap;
+    updateInterfaceEdgeWrappingFromValue();
+
+    resetLoopDetection();
+}
+
 function resetLoopDetection() {
     grid.resetLoopDetection();
 }
@@ -41,7 +58,7 @@ function setup() {
     ROWS=100;
     COLS=100;
     nbCells = ROWS * COLS;
-    edgeWrapping = false;
+    edgeWrapping = true;
     neighborsAlgorithm = 'MOORE';
     loopDetection = true;
 

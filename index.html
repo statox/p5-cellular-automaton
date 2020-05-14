@@ -30,8 +30,14 @@
     <script src="app/Grid.js"></script>
     <script src="app/Rules.js"></script>
     <script src="app/Interface.js"></script>
+    <script src="app/Presets.js"></script>
+
+    <!-- Github fork me ribbon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
   </head>
   <body>
+      <a class="github-fork-ribbon" href="https://github.com/statox/p5-cellular-automaton" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+
       <div class="container">
           <!-- Jumbotron header -->
           <div class="jumbotron" style="text-align:center">
@@ -79,6 +85,18 @@
                               Columns <input id="inputCOLS" type="number"/>
                               Rows <input id="inputROWS" type="number"/>
                               <button class="btn btn-default" type="button" onclick="setSize()">Reset</button>
+                          </td>
+                      </tr>
+                      <tr class="row">
+                          <td class="col-sm-2">
+                              <p>Preset configurations</p>
+                          </td>
+                          <td class="col-sm-3">
+                              <select id="preset-select" onchange="updatePreset(this)"></select>
+                          </td>
+                          <td class="col-sm-7">
+                              <span id="preset-description">
+                              </span>
                           </td>
                       </tr>
                       <tr class="row">
