@@ -25,6 +25,8 @@ const updateBirthRule = (button, value) => {
     } else {
         rules.born.delete(value);
     }
+
+    resetLoopDetection();
 };
 
 const updateSurviveRule = (button, value) => {
@@ -33,6 +35,8 @@ const updateSurviveRule = (button, value) => {
     } else {
         rules.survive.delete(value);
     }
+
+    resetLoopDetection();
 };
 
 const toggleRun = () => {
@@ -48,6 +52,7 @@ const setSize = () => {
 
 const updateEdgeWrapping = (button) => {
     edgeWrapping = button.checked;
+    resetLoopDetection();
 }
 
 // TODO: I'm not ashamed of this... but I'm not proud either
@@ -71,4 +76,25 @@ const updateNeighborsAlgorithm = (button, algo) => {
             neighborsAlgorithm = 'MOORE';
         }
     }
+
+    resetLoopDetection();
 };
+
+const updateLoopDetected = (showLoop, showLoopSize, loopSize) => {
+    if (showLoop) {
+        document.getElementById("loop-detected-notice").classList.remove("invisible");
+        document.getElementById("loop-detected-notice").classList.add("visible");
+    } else {
+        document.getElementById("loop-detected-notice").classList.remove("visible");
+        document.getElementById("loop-detected-notice").classList.add("invisible");
+    }
+
+    if (showLoopSize) {
+        document.getElementById("loop-size-detected-notice").classList.remove("invisible");
+        document.getElementById("loop-size-detected-notice").classList.add("visible");
+        document.getElementById("loop-size-detected-notice").innerText = `Loop size ${loopSize}`;
+    } else {
+        document.getElementById("loop-size-detected-notice").classList.remove("visible");
+        document.getElementById("loop-size-detected-notice").classList.add("invisible");
+    }
+}

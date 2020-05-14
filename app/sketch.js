@@ -9,15 +9,22 @@ let grid;
 let runIterations;
 let edgeWrapping;
 let neighborsAlgorithm;
+let loopDetection;
 
 // Dimensions of the grid
 let ROWS;
 let COLS;
 let nbCells;
 
+function resetLoopDetection() {
+    grid.resetLoopDetection();
+}
+
 function resetGrid() {
     nbCells = ROWS * COLS;
     cells = [];
+
+    grid = new Grid();
     for (var i=0; i<nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));
     }
@@ -36,6 +43,7 @@ function setup() {
     nbCells = ROWS * COLS;
     edgeWrapping = false;
     neighborsAlgorithm = 'MOORE';
+    loopDetection = true;
 
     for (var i=0; i<nbCells; i++) {
         cells.push(new Cell(i, Math.random() < 0.5));
@@ -53,6 +61,8 @@ function draw() {
         grid.doIteration();
     }
     cells.forEach(c => c.show(grid.maxAge));
+
+    updateLoopDetected(grid.foundLoop, grid.foundLoopSize, grid.loopSize);
 
     iterationCpt++;
 }

@@ -1,6 +1,11 @@
 function Grid() {
     this.minAge = 0;
     this.maxAge = 0;
+    this.previousStates = new Set();
+    this.foundLoop = false;
+    this.loopSize;
+    this.foundLoopSize = false;
+    this.loopFirstElement;
 
     this.doIteration = () => {
         const newStates = [];
@@ -24,6 +29,8 @@ function Grid() {
 
         this.minAge = cells[0].age;
         this.maxAge = cells[0].age;
+
+        let representation = '';
         cells.forEach((c, i) => {
             newStates[i].bind(c)();
             if (c.isAlive) {
@@ -33,7 +40,38 @@ function Grid() {
                 if (c.age > this.maxAge) {
                     this.maxAge = c.age;
                 }
+                representation += '1';
+            } else {
+                representation += '0';
             }
         });
+
+        if (loopDetection) {
+            if (this.previousStates.has(representation)) {
+                this.foundLoop = true;
+                this.loopSize = 0;
+                this.loopFirstElement = representation;
+                this.previousStates = new Set();
+            }
+
+            if (this.foundLoop && !this.foundLoopSize) {
+                this.loopSize++;
+                if (representation === this.loopFirstElement) {
+                    this.foundLoopSize = true;
+                }
+            }
+
+            if (!this.foundLoop) {
+                this.previousStates.add(representation);
+            }
+        }
     }
+
+    this.resetLoopDetection = () => {
+        this.previousStates = new Set();
+        this.foundLoop = false;
+        this.loopSize = null;
+        this.foundLoopSize = false;
+        this.loopFirstElement = null;
+    };
 }
