@@ -18,7 +18,7 @@ function resetGrid() {
 
     grid = new Grid();
     for (var i=0; i<settings.nbCells; i++) {
-        cells.push(new Cell(i, Math.random() < 0.5));
+        cells.push(new Cell(i, Math.random() < settings.initialDensity / 100));
     }
 }
 
@@ -35,7 +35,7 @@ function setup() {
     setNeighborsToSelect();
 
     for (var i=0; i<settings.nbCells; i++) {
-        cells.push(new Cell(i, Math.random() < 0.5));
+        cells.push(new Cell(i, Math.random() < settings.initialDensity / 100));
     }
 
     initializeInterface();

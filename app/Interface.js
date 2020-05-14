@@ -59,6 +59,7 @@ const initializeInterface = () => {
     document.getElementById("play-pause-btn").textContent = 'Pause';
     document.getElementById("inputROWS").value = settings.ROWS;
     document.getElementById("inputCOLS").value = settings.COLS;
+    document.getElementById("inputInitialDensity").value = settings.initialDensity;
 
     PRESETS.forEach((preset, index) => {
         presetOption = document.createElement("option");
@@ -100,6 +101,7 @@ const toggleRun = () => {
 const setSize = () => {
     settings.ROWS = Number(document.getElementById("inputROWS").value);
     settings.COLS = Number(document.getElementById("inputCOLS").value);
+    settings.initialDensity = Number(document.getElementById("inputInitialDensity").value);
     resetGrid();
 }
 

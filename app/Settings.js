@@ -8,4 +8,5 @@ function Settings() {
     this.neighborsAlgorithm = 'MOORE';
     this.neighborsToSelect;
     this.invertVisualization = false;
+    this.initialDensity = 50;
 }
