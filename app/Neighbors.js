@@ -26,6 +26,4 @@ const setNeighborsToSelect = () => {
             SELF:false,
         };
     }
-
-    console.log('updating neigbors', neighborsAlgorithm, neighborsToSelect);
 };

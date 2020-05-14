@@ -10,14 +10,14 @@ const updateInterfaceSelectedNeighborsFromValue = () => {
 
 const updateInterfaceRulesFromValues = () => {
     for (let v=0; v<9; v++) {
-        document.getElementById("inputBirth" + v).checked = false;
-        document.getElementById("inputSurvive" + v).checked = false;
+        document.getElementById("inputBirth" + v).classList.remove('btn-success');
+        document.getElementById("inputSurvive" + v).classList.remove('btn-success');
     }
     rules.born.forEach(v => {
-        document.getElementById("inputBirth" + v).checked = true;
+        document.getElementById("inputBirth" + v).classList.add('btn-success');
     });
     rules.survive.forEach(v => {
-        document.getElementById("inputSurvive" + v).checked = true;
+        document.getElementById("inputSurvive" + v).classList.add('btn-success');
     });
 };
 
@@ -63,22 +63,24 @@ const resetSimulation = () => {
 };
 
 const updateBirthRule = (button, value) => {
-    if (button.checked) {
-        rules.born.add(value);
-    } else {
+    if (rules.born.has(value)) {
         rules.born.delete(value);
+    } else {
+        rules.born.add(value);
     }
 
+    updateInterfaceRulesFromValues();
     resetLoopDetection();
 };
 
 const updateSurviveRule = (button, value) => {
-    if (button.checked) {
-        rules.survive.add(value);
-    } else {
+    if (rules.survive.has(value)) {
         rules.survive.delete(value);
+    } else {
+        rules.survive.add(value);
     }
 
+    updateInterfaceRulesFromValues();
     resetLoopDetection();
 };
 
