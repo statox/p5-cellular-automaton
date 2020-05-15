@@ -9,7 +9,6 @@ let rules;
 let grid;
 
 let previousRunIteration;
-let mouseWasPressed;
 
 function resetLoopDetection() {
     grid.resetLoopDetection();
@@ -31,12 +30,11 @@ function setup() {
     myCanvas.parent("canvasDiv");
 
     settings = new Settings();
-
-    previousRunIteration = settings.runIterations;
-    mouseWasPressed = false;
-
     rules = new Rules([3], [2, 3]);
     grid = new Grid();
+    changePreset(0);
+
+    previousRunIteration = settings.runIterations;
 
     setNeighborsToSelect();
 

@@ -93,11 +93,10 @@
                               <p>Preset configurations</p>
                           </td>
                           <td class="col-sm-3">
-                              <select id="preset-select" onchange="updatePreset(this)"></select>
+                              <span id="preset-description"></span>
                           </td>
                           <td class="col-sm-7">
-                              <span id="preset-description">
-                              </span>
+                              <select id="preset-select" onchange="updatePreset(this)"></select>
                           </td>
                       </tr>
                       <tr class="row">
@@ -228,6 +227,37 @@
               </div>
               <div id="automaton-content" class="collapse in">
                   <div class="col-md-6" id="canvasDiv"></div>
+              </div>
+          </div>
+
+          <!-- Preset imports and exports -->
+          <div class="row">
+              <h1 id="presets">Presets</h1>
+              <hr/>
+              <div>
+                  <h2>Save the current configuration.</h2>
+                  <p>
+                  <span>The "Save" button add the current configuration to the list of presets.</span>
+                  <span>The "Export" button allows you to download the current configuration as a JSON file.</span>
+                  <p>
+
+                  <form>
+                      <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Name</label>
+                          <div class="col-sm-10">
+                              <input id="export-name" type="text"/>
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Description</label>
+                          <div class="col-sm-10">
+                              <input id="export-description" type="text"/>
+                          </div>
+                      </div>
+
+                      <button id="saveBtn" type="button" class="btn" onclick='savePresetClicked();'>Save</button>
+                      <button id="exportBtn" type="button" class="btn" onclick='exportPresetClicked();'>Export</button>
+                  </form>
               </div>
           </div>
 

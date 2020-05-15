@@ -13,105 +13,216 @@
 
 const PRESETS = [
     {
-        name: 'Game of life',
-        description: 'The original Conway\'s Game of life',
-        wrap: true, neighborsAlgorithm: 'MOORE',
-        B: [3], S: [2, 3]
-    },
-    {
-        name: 'Dead islands',
-        description: 'An automata with island of dead cells which never resurect',
-        wrap: true, neighborsAlgorithm: 'CARDINAL',
-        B: [2, 3], S: [4, 5, 6, 7]
-    },
-    {
-        name: 'Big block',
-        description: 'An automata with a big block in the center and sometimes alive edges',
-        wrap: false, neighborsAlgorithm: 'CARDINAL',
-        B: [1, 3], S: [1, 3, 4]
-    },
-    {
-        name: 'Swiss cheese',
-        description: 'Fills the space but leave some long lasting holes',
-        wrap: true, neighborsAlgorithm: 'MOORE',
-        B: [1, 2], S: [4, 5, 6, 7]
-    },
-    {
-        name: 'Everchanging islands',
-        description: 'Generates some islands which are constantly evolving',
-        wrap: true, neighborsAlgorithm: 'MOORE',
-        B: [1, 3], S: [1, 2, 4, 5, 6]
-    },
-    {
-        name: 'Pathes and islands',
-        description: 'Generates some long lasting paths and sometimes some moving islands',
-        wrap: true, neighborsAlgorithm: 'CARDINAL',
-        B: [1, 3], S: [0, 1, 2]
-    },
-    {
-        name: 'Symetry effects',
-        description: 'Interesting effects when you add and remove the S3 rule',
-        wrap: true, neighborsAlgorithm: 'CARDINAL',
-        B: [2, 3, 4, 5], S: [1, 2, 4]
-    },
-    {
-        name: 'Filler',
-        description: 'Rapidly fills the space, creating a cool heatmap-like effect',
-        wrap: true, neighborsAlgorithm: 'CARDINAL',
-        B: [2, 3, 4, 5], S: [2, 3, 4, 5, 6]
-    },
-    {
-        name: 'Small blocks',
-        description: 'Generates some small blocks across the space',
-        wrap: true, neighborsAlgorithm: 'CARDINAL',
-        B: [2], S: [2, 3]
-    },
-    {
-        name: 'Pathes and loops',
-        description: 'Stabilizes to lines across the space. Also produces rings which disappear',
-        wrap: true, neighborsAlgorithm: 'CARDINAL',
-        B: [2, 3], S: [2]
-    },
-    {
-        name: 'Slider',
-        description: 'Stabilizes on sliding lines of cells',
-        wrap: true, neighborsToSelect: {
-            N:   true,
-            W:   false,
-            S:   false,
-            E:   false,
-            NW:  false,
-            NE:  false,
-            SW:  false,
-            SE:  false,
-            SELF:false,
+        settings: {
+            name: 'Game of life',
+            description: 'The original Conway\'s Game of life',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: true, N: true, NE: true, W: true, E: true, SW: true, S: true, SE: true, SELF: false},
         },
-        B: [1], S: [1]
+        rules: {
+            born: [3], survive: [2, 3]
+        }
+    },
+    {
+        settings: {
+            name: 'Dead islands',
+            description: 'An automata with island of dead cells which never resurect',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: true,
+            initialDensity: 50,
+            neighborsToSelect: {NW: false, N: true, NE: false, W: true, E: true, SW: false, S: true, SE: false, SELF: false},
+        },
+        rules: {
+            born: [2, 3], survive: [4, 5, 6, 7]
+        }
+    },
+    {
+        settings: {
+            name: 'Big block',
+            description: 'An automata with a big block in the center and sometimes alive edges',
+            edgeWrapping: false,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: false, N: true, NE: false, W: true, E: true, SW: false, S: true, SE: false, SELF: false},
+        },
+        rules: {
+            born: [1, 3], survive: [1, 3, 4]
+        }
+    },
+    {
+        settings: {
+            name: 'Swiss cheese',
+            description: 'Fills the space but leave some long lasting holes',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: true, N: true, NE: true, W: true, E: true, SW: true, S: true, SE: true, SELF: false},
+        },
+        rules: {
+            born: [1, 2], survive: [4, 5, 6, 7]
+        }
+    },
+    {
+        settings: {
+            name: 'Everchanging islands',
+            description: 'Generates some islands which are constantly evolving',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: true, N: true, NE: true, W: true, E: true, SW: true, S: true, SE: true, SELF: false},
+        },
+        rules: {
+            born: [1, 3], survive: [1, 2, 4, 5, 6]
+        }
+    },
+    {
+        settings: {
+            name: 'Pathes and islands',
+            description: 'Generates some long lasting paths and sometimes some moving islands',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: false, N: true, NE: false, W: true, E: true, SW: false, S: true, SE: false, SELF: false},
+        },
+        rules: {
+            born: [1, 3], survive: [0, 1, 2]
+        }
+    },
+    {
+        settings: {
+            name: 'Symetry effects',
+            description: 'Interesting effects when you add and remove the S3 rule',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: false, N: true, NE: false, W: true, E: true, SW: false, S: true, SE: false, SELF: false},
+        },
+        rules: {
+            born: [2, 3, 4, 5], survive: [1, 2, 4]
+        }
+    },
+    {
+        settings: {
+            name: 'Filler',
+            description: 'Rapidly fills the space, creating a cool heatmap-like effect',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: false, N: true, NE: false, W: true, E: true, SW: false, S: true, SE: false, SELF: false},
+        },
+        rules: {
+            born: [2, 3, 4, 5], survive: [2, 3, 4, 5, 6]
+        }
+    },
+    {
+        settings: {
+            name: 'Small blocks',
+            description: 'Generates some small blocks across the space',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: false, N: true, NE: false, W: true, E: true, SW: false, S: true, SE: false, SELF: false},
+        },
+        rules: {
+            born: [2], survive: [2, 3]
+        }
+    },
+    {
+        settings: {
+            name: 'Pathes and loops',
+            description: 'Stabilizes to lines across the space. Also produces rings which disappear',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: {NW: false, N: true, NE: false, W: true, E: true, SW: false, S: true, SE: false, SELF: false},
+        },
+        rules: {
+            born: [2, 3], survive: [2]
+        }
+    },
+    {
+        settings: {
+            name: 'Slider',
+            description: 'Stabilizes on sliding lines of cells',
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: { N:   true, W:   false, S:   false, E:   false, NW:  false, NE:  false, SW:  false, SE:  false, SELF:false, },
+        },
+        rules: {
+            born: [1], survive: [1]
+        }
     },
 ];
 
 const changePreset = (presetIndex) => {
     const newPreset = PRESETS[presetIndex];
-    const { wrap, B, S } = newPreset;
-
-    if (newPreset.neighborsAlgorithm) {
-        settings.neighborsAlgorithm = newPreset.neighborsAlgorithm;
-        updateInterfaceNeighborsAlgorithmFromValue();
-
-        setNeighborsToSelect();
-        updateInterfaceSelectedNeighborsFromValue();
-    } else if (newPreset.neighborsToSelect) {
-        settings.neighborsToSelect = newPreset.neighborsToSelect;
-        updateInterfaceSelectedNeighborsFromValue();
+    const { ROWS, COLS, nbCells, runIterations } = settings
+    try {
+        settings = JSON.parse(JSON.stringify(newPreset.settings));
+    } catch (error) {
+        console.error('Failed to parse the preset');
+        console.error(error);
     }
+    rules.born = new Set(newPreset.rules.born);
+    rules.survive = new Set(newPreset.rules.survive);
 
+    settings.ROWS = ROWS;
+    settings.COLS = COLS;
+    settings.nbCells = nbCells;
+    settings.runIterations = runIterations;
+    settings.neighborsAlgorithm = 'MOORE';
+    settings.drawingTool = 'PENCIL';
+    settings.drawing = false;
 
-    rules.born = new Set(B);
-    rules.survive = new Set(S);
-    updateInterfaceRulesFromValues();
-
-    settings.edgeWrapping = wrap;
-    updateInterfaceEdgeWrappingFromValue();
-
+    updateInterfaceAllItemsFromValue();
     resetLoopDetection();
+}
+
+const createPresetFromCurrentConfig = (name, description) => {
+    settings.name = name;
+    settings.description = description;
+
+    return currentPreset = {
+        settings,
+        rules: {
+            born: [...rules.born],
+            survive: [...rules.survive],
+        }
+    }
+};
+const saveCurrentPreset = (name, description) => {
+    const currentPreset = createPresetFromCurrentConfig(name, description);
+    PRESETS.push(currentPreset);
+    changePreset(PRESETS.length - 1);
+}
+
+const exportCurrentPreset = (name, description) => {
+    const currentPreset = createPresetFromCurrentConfig(name, description);
+    download(`${name}.json`, JSON.stringify(currentPreset));
+}
+
+const download = (filename, text) => {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+  document.body.removeChild(element);
 }

@@ -63,27 +63,50 @@ const updateInterfaceDrawingToolsFromValue = () => {
     }
 };
 
-const initializeInterface = () => {
+const updateInterfaceSizeFromValue = () => {
+    document.getElementById("inputROWS").value = settings.ROWS;
+    document.getElementById("inputCOLS").value = settings.COLS;
+};
+
+const updateInterfaceInitialDensityFromValue = () => {
+    document.getElementById("inputInitialDensity").value = settings.initialDensity;
+};
+
+const updateInterfacePresetsFromValue = () => {
+    const presetsSelect = document.getElementById("preset-select");
+    while (presetsSelect.firstChild) {
+        presetsSelect.removeChild(presetsSelect.firstChild);
+    }
+
+    PRESETS.forEach((preset, index) => {
+        presetOption = document.createElement("option");
+        presetOption.innerText = preset.settings.name;
+        presetOption.value = index;
+
+        if (preset.settings.name === settings.name) {
+            presetOption.selected = 'selected';
+            document.getElementById("preset-description").innerText = preset.settings.description;
+        }
+
+        presetsSelect.appendChild(presetOption);
+    });
+};
+
+const updateInterfaceAllItemsFromValue = () => {
     updateInterfaceRulesFromValues();
     updateInterfaceEdgeWrappingFromValue();
     updateInterfaceInvertVisFromValue();
     updateInterfaceNeighborsAlgorithmFromValue();
     updateInterfaceSelectedNeighborsFromValue();
     updateInterfaceDrawingToolsFromValue();
+    updateInterfaceSizeFromValue();
+    updateInterfaceInitialDensityFromValue();
+    updateInterfacePresetsFromValue();
+};
 
+const initializeInterface = () => {
+    updateInterfaceAllItemsFromValue();
     document.getElementById("play-pause-btn").textContent = 'Pause';
-    document.getElementById("inputROWS").value = settings.ROWS;
-    document.getElementById("inputCOLS").value = settings.COLS;
-    document.getElementById("inputInitialDensity").value = settings.initialDensity;
-
-    PRESETS.forEach((preset, index) => {
-        presetOption = document.createElement("option");
-        presetOption.innerText = preset.name;
-        presetOption.value = index;
-
-        document.getElementById("preset-select").appendChild(presetOption);
-    });
-    document.getElementById("preset-description").innerText = PRESETS[0].description;
 };
 
 const updateBirthRule = (button, value) => {
@@ -157,20 +180,32 @@ const updateLoopDetected = (showLoop, showLoopSize, loopSize) => {
         document.getElementById("loop-size-detected-notice").classList.remove("visible");
         document.getElementById("loop-size-detected-notice").classList.add("invisible");
     }
-}
+};
 
 const updatePreset = (select) => {
     const chosenPresetIndex = select.options[select.selectedIndex].value;
-    document.getElementById("preset-description").innerText = PRESETS[chosenPresetIndex].description;
-    changePreset(chosenPresetIndex);
-}
+    const description = changePreset(chosenPresetIndex);
+    document.getElementById("preset-description").innerText = settings.description;
+};
 
 const updateNeighborSelection = (neighbor) => {
     settings.neighborsToSelect[neighbor] = !settings.neighborsToSelect[neighbor];
     updateInterfaceSelectedNeighborsFromValue();
-}
+};
 
 const updateDrawing = (tool) => {
     settings.drawingTool = tool;
     updateInterfaceDrawingToolsFromValue();
+};
+
+const savePresetClicked = () => {
+    const name = document.getElementById('export-name').value;
+    const description = document.getElementById('export-description').value;
+    saveCurrentPreset(name, description);
+}
+
+const exportPresetClicked = () => {
+    const name = document.getElementById('export-name').value;
+    const description = document.getElementById('export-description').value;
+    exportCurrentPreset(name, description);
 }

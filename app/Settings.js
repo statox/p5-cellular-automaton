@@ -1,4 +1,6 @@
 function Settings() {
+    this.name;
+    this.description;
     this.runIterations = true;
     this.edgeWrapping = true;
     this.ROWS = 100;
