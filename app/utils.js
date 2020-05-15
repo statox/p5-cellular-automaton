@@ -27,3 +27,24 @@ const IJToIndex = ({i, j}) => {
 
     return j * settings.COLS + i;
 };
+
+const XYToIJ =  ({x, y}) => {
+    const w = D/settings.COLS;
+    const h = D/settings.ROWS;
+    const i = Math.floor(x * settings.COLS / D);
+    const j = Math.floor(y * settings.ROWS / D);
+
+    if (i === undefined || j === undefined || i<0 || j<0 || i>settings.COLS-1 || j > settings.ROWS-1) {
+        return;
+    }
+    return {i, j};
+};
+
+const XYToIndex = ({x, y}) => {
+    const IJ = XYToIJ({x, y});
+    if (IJ === undefined) {
+        return;
+    }
+
+    return IJToIndex(IJ);
+};

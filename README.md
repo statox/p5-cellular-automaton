@@ -14,7 +14,7 @@ Features I want to implement:
     - [X] Possibility to include a cell in the list of its neighbors
     - [ ] Possibility to choose neighbors of more than one row of distance
  - [X] Invert visualization: Have a way to ligth the dead cells and turn the living ones black
- - [ ] Drawing and erasing: Have a way to set the alive/dead cells directly from the mouse
+ - [X] Drawing and erasing: Have a way to set the alive/dead cells directly from the mouse
  - [X] Initial density setting: Have a way to select the density of living cells when generating a random grid
  - [ ] Perf improvement: Initialize the list of neighbors for each cells at the initialization of the grid.
  - [ ] Visualization: Have a setting to merge some cells together to have a smaller definition and visualize the grid as if it was some leds

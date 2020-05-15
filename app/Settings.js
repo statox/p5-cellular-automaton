@@ -9,4 +9,6 @@ function Settings() {
     this.neighborsToSelect;
     this.invertVisualization = false;
     this.initialDensity = 50;
+    this.drawingTool = 'PENCIL';
+    this.drawing = false;
 }

@@ -49,12 +49,27 @@ const updateInterfaceNeighborsAlgorithmFromValue = () => {
     }
 };
 
+const updateInterfaceDrawingToolsFromValue = () => {
+    const pencilBtn = document.getElementById("pencilBtn");
+    const eraserBtn = document.getElementById("eraserBtn");
+
+    if (settings.drawingTool === 'PENCIL') {
+        pencilBtn.classList.add('btn-success');
+        eraserBtn.classList.remove('btn-success');
+    }
+    if (settings.drawingTool === 'ERASER') {
+        pencilBtn.classList.remove('btn-success');
+        eraserBtn.classList.add('btn-success');
+    }
+};
+
 const initializeInterface = () => {
     updateInterfaceRulesFromValues();
     updateInterfaceEdgeWrappingFromValue();
     updateInterfaceInvertVisFromValue();
     updateInterfaceNeighborsAlgorithmFromValue();
     updateInterfaceSelectedNeighborsFromValue();
+    updateInterfaceDrawingToolsFromValue();
 
     document.getElementById("play-pause-btn").textContent = 'Pause';
     document.getElementById("inputROWS").value = settings.ROWS;
@@ -153,4 +168,9 @@ const updatePreset = (select) => {
 const updateNeighborSelection = (neighbor) => {
     settings.neighborsToSelect[neighbor] = !settings.neighborsToSelect[neighbor];
     updateInterfaceSelectedNeighborsFromValue();
+}
+
+const updateDrawing = (tool) => {
+    settings.drawingTool = tool;
+    updateInterfaceDrawingToolsFromValue();
 }

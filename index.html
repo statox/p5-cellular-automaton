@@ -33,6 +33,7 @@
     <script src="app/Presets.js"></script>
     <script src="app/Neighbors.js"></script>
     <script src="app/Settings.js"></script>
+    <script src="app/Drawing.js"></script>
 
     <!-- Github fork me ribbon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
@@ -218,6 +219,12 @@
               <div style="font-size: x-large" >
                   <span id="loop-detected-notice" class="invisible">Loop detected.</span>
                   <span id="loop-size-detected-notice" class="invisible">Loop size:</span>
+              </div>
+              <div>
+                  <span>
+                      <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
+                      <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
+                  </span>
               </div>
               <div id="automaton-content" class="collapse in">
                   <div class="col-md-6" id="canvasDiv"></div>

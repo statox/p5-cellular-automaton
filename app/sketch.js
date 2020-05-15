@@ -8,6 +8,9 @@ let settings;
 let rules;
 let grid;
 
+let previousRunIteration;
+let mouseWasPressed;
+
 function resetLoopDetection() {
     grid.resetLoopDetection();
 }
@@ -28,6 +31,9 @@ function setup() {
     myCanvas.parent("canvasDiv");
 
     settings = new Settings();
+
+    previousRunIteration = settings.runIterations;
+    mouseWasPressed = false;
 
     rules = new Rules([3], [2, 3]);
     grid = new Grid();
@@ -53,5 +59,24 @@ function draw() {
 
     updateLoopDetected(grid.foundLoop, grid.foundLoopSize, grid.loopSize);
 
+    if (mouseIsPressed) {
+        drawCell();
+    }
+
     iterationCpt++;
+}
+
+function mousePressed() {
+    // When pressing the mouse to draw cells stop the simulation
+    if (mouseX > 0 && mouseX < D && mouseY > 0 && mouseY < D) {
+        previousRunIteration = settings.runIterations;
+        settings.runIterations = false;
+    }
+}
+
+function mouseReleased() {
+    // When releasing the mouse after drawing cells resume the simulation
+    if (mouseX > 0 && mouseX < D && mouseY > 0 && mouseY < D) {
+        settings.runIterations = previousRunIteration;
+    }
 }
