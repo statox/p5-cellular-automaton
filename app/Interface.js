@@ -92,6 +92,28 @@ const updateInterfacePresetsFromValue = () => {
     });
 };
 
+const updateInterfaceRandomizationToggleFromValue = () => {
+    const randomizeButton = document.getElementById('toggle-randomize-btn');
+
+    if (settings.randomize) {
+        randomizeButton.classList.add('btn-success');
+    } else {
+        randomizeButton.classList.remove('btn-success');
+    }
+};
+
+const updateInterfaceRandomizationRulesFromValue = () => {
+    const buttons = document.getElementsByClassName('randomization-selection');
+    for (var i=0; i<buttons.length; i++) {
+        const button = buttons[i];
+        if (settings.randomizationRules.has(button.value)) {
+            buttons[i].classList.add('btn-success');
+        } else {
+            buttons[i].classList.remove('btn-success');
+        }
+    }
+};
+
 const updateInterfaceAllItemsFromValue = () => {
     updateInterfaceRulesFromValues();
     updateInterfaceEdgeWrappingFromValue();
@@ -102,6 +124,8 @@ const updateInterfaceAllItemsFromValue = () => {
     updateInterfaceSizeFromValue();
     updateInterfaceInitialDensityFromValue();
     updateInterfacePresetsFromValue();
+    updateInterfaceRandomizationToggleFromValue();
+    updateInterfaceRandomizationRulesFromValue();
 };
 
 const initializeInterface = () => {
@@ -214,3 +238,18 @@ const exportPresetClicked = () => {
     const description = document.getElementById('export-description').value;
     exportCurrentPreset(name, description);
 }
+
+const toggleRandomize = () => {
+    settings.randomize = !settings.randomize;
+    updateInterfaceRandomizationToggleFromValue();
+}
+
+const updateRandomizationRule = (button, ruleName) => {
+    if (settings.randomizationRules.has(ruleName)) {
+        settings.randomizationRules.delete(ruleName)
+    } else {
+        settings.randomizationRules.add(ruleName)
+    }
+
+    updateInterfaceRandomizationRulesFromValue();
+};

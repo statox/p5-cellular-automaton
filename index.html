@@ -34,6 +34,7 @@
     <script src="app/Neighbors.js"></script>
     <script src="app/Settings.js"></script>
     <script src="app/Drawing.js"></script>
+    <script src="app/Randomizer.js"></script>
 
     <!-- Github fork me ribbon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
@@ -86,6 +87,26 @@
                                   <button id="play-pause-btn" class="btn btn-default" type="button" onclick="toggleRun()"></button>
                                   <button class="btn btn-danger" type="button" onclick="setSize()">Reset</button>
                               </form>
+                          </td>
+                      </tr>
+                      <tr class="row">
+                          <td class="col-sm-2">
+                              <p>Randomize</p>
+                          </td>
+                          <td class="col-sm-3">
+                              <span>When the Randomization is enabled, the system will randomly mutate the selected parameters to create cool visualizations</span>
+                          </td>
+                          <td class="col-sm-7">
+                              <button id='toggle-randomize-btn' class="btn" type="button" onclick="toggleRandomize()">Randomize</button>
+                              <hr/>
+                              <ul>
+                                  <li><button id="input-random-preset"    type="checkbox" value="preset"    class="btn randomization-selection" onclick='updateRandomizationRule(this, "preset"   );'>Preset</button></li>
+                                  <li><button id="input-random-neighbors" type="checkbox" value="neighbors" class="btn randomization-selection" onclick='updateRandomizationRule(this, "neighbors");'>Neighbors selection</button></li>
+                                  <li><button id="input-random-birth"     type="checkbox" value="birth"     class="btn randomization-selection" onclick='updateRandomizationRule(this, "birth"    );'>Birth rules</button></li>
+                                  <li><button id="input-random-survive"   type="checkbox" value="survive"   class="btn randomization-selection" onclick='updateRandomizationRule(this, "survive"  );'>Survive rules</button></li>
+                                  <li><button id="input-random-edge"      type="checkbox" value="edge"      class="btn randomization-selection" onclick='updateRandomizationRule(this, "edge"     );'>Edge wrapping</button></li>
+                                  <li><button id="input-random-invert"    type="checkbox" value="invert"    class="btn randomization-selection" onclick='updateRandomizationRule(this, "invert"   );'>Inverted visualization</button></li>
+                              </ul>
                           </td>
                       </tr>
                       <tr class="row">

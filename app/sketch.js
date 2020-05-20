@@ -61,7 +61,21 @@ function draw() {
         drawCell();
     }
 
+    if (settings.randomize && iterationCpt%100 === 0) {
+        randomizeSettings();
+    }
+
+    if (grid.aliveCells === 0) {
+        resetGrid();
+    }
+
     iterationCpt++;
+
+    // Draw FPS (rounded to 2 decimal places) at the bottom left of the screen
+    let fps = frameRate();
+    fill(255);
+    stroke(0);
+    text("FPS: " + fps.toFixed(2), 10, height - 10);
 }
 
 function mousePressed() {

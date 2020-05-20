@@ -170,7 +170,7 @@ const PRESETS = [
 
 const changePreset = (presetIndex) => {
     const newPreset = PRESETS[presetIndex];
-    const { ROWS, COLS, nbCells, runIterations } = settings
+    const { ROWS, COLS, nbCells, runIterations, randomize, randomizationRules } = settings
     try {
         settings = JSON.parse(JSON.stringify(newPreset.settings));
     } catch (error) {
@@ -184,9 +184,12 @@ const changePreset = (presetIndex) => {
     settings.COLS = COLS;
     settings.nbCells = nbCells;
     settings.runIterations = runIterations;
+    settings.randomize = randomize;
     settings.neighborsAlgorithm = 'MOORE';
     settings.drawingTool = 'PENCIL';
     settings.drawing = false;
+    settings.randomizationRules = randomizationRules;
+
 
     updateInterfaceAllItemsFromValue();
     resetLoopDetection();

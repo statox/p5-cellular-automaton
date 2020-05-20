@@ -18,7 +18,8 @@ Features I want to implement:
  - [X] Drawing and erasing: Have a way to set the alive/dead cells directly from the mouse
  - [X] Initial density setting: Have a way to select the density of living cells when generating a random grid
  - [ ] Perf improvement: Initialize the list of neighbors for each cells at the initialization of the grid.
+ - [ ] Perf improvement: For now Grid.doIteration is O(n2), make it O(n). I think it is possible to do so by having Cells containing their current state and the next one and handle the transformation in only one loop.
  - [ ] Visualization: Have a setting to merge some cells together to have a smaller definition and visualize the grid as if it was some leds
  - [ ] Visualization: Let's make it 3D!!
- - [ ] Random changes: Have a settings to randomly change settings during the simulation to create artistic visualizations
+ - [X] Random changes: Have a settings to randomly change settings during the simulation to create artistic visualizations
  - [ ] Try the newcss framework to replace bootstrap (Dedicated branch already created)

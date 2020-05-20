@@ -13,4 +13,6 @@ function Settings() {
     this.initialDensity = 50;
     this.drawingTool = 'PENCIL';
     this.drawing = false;
+    this.randomize = false;
+    this.randomizationRules = new Set(['neighbors', 'birth', 'survive']);
 }

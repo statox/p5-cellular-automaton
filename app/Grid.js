@@ -1,6 +1,7 @@
 function Grid() {
     this.minAge = 0;
     this.maxAge = 0;
+    this.aliveCells;
     this.previousStates = new Set();
     this.foundLoop = false;
     this.loopSize;
@@ -30,6 +31,7 @@ function Grid() {
         this.maxAge = cells[0].age;
 
         let representation = '';
+        this.aliveCells = 0;
         cells.forEach((c, i) => {
             newStates[i].bind(c)();
             if (c.isAlive) {
@@ -40,6 +42,7 @@ function Grid() {
                     this.maxAge = c.age;
                 }
                 representation += '1';
+                this.aliveCells++;
             } else {
                 representation += '0';
             }
