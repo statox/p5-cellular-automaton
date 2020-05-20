@@ -21,3 +21,4 @@ Features I want to implement:
  - [ ] Visualization: Have a setting to merge some cells together to have a smaller definition and visualize the grid as if it was some leds
  - [ ] Visualization: Let's make it 3D!!
  - [ ] Random changes: Have a settings to randomly change settings during the simulation to create artistic visualizations
+ - [ ] Check if I can replace bootstrap with https://newcss.net/
