@@ -167,18 +167,21 @@ const updateLoopDetected = (showLoop, showLoopSize, loopSize) => {
     if (showLoop) {
         document.getElementById("loop-detected-notice").classList.remove("invisible");
         document.getElementById("loop-detected-notice").classList.add("visible");
+
+        document.getElementById("loop-size-detected-notice").classList.remove("invisible");
+        document.getElementById("loop-size-detected-notice").classList.add("visible");
+
+        document.getElementById("loop-size-detected-notice").innerText = 'Calculating loop size';
     } else {
         document.getElementById("loop-detected-notice").classList.remove("visible");
         document.getElementById("loop-detected-notice").classList.add("invisible");
+
+        document.getElementById("loop-size-detected-notice").classList.remove("visible");
+        document.getElementById("loop-size-detected-notice").classList.add("invisible");
     }
 
     if (showLoopSize) {
-        document.getElementById("loop-size-detected-notice").classList.remove("invisible");
-        document.getElementById("loop-size-detected-notice").classList.add("visible");
         document.getElementById("loop-size-detected-notice").innerText = `Loop size ${loopSize}`;
-    } else {
-        document.getElementById("loop-size-detected-notice").classList.remove("visible");
-        document.getElementById("loop-size-detected-notice").classList.add("invisible");
     }
 };
 
@@ -186,10 +189,12 @@ const updatePreset = (select) => {
     const chosenPresetIndex = select.options[select.selectedIndex].value;
     const description = changePreset(chosenPresetIndex);
     document.getElementById("preset-description").innerText = settings.description;
+    resetLoopDetection();
 };
 
 const updateNeighborSelection = (neighbor) => {
     settings.neighborsToSelect[neighbor] = !settings.neighborsToSelect[neighbor];
+    resetLoopDetection();
     updateInterfaceSelectedNeighborsFromValue();
 };
 

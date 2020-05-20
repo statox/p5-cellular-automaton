@@ -8,8 +8,10 @@ const drawCell = () => {
     const cell = cells[index];
     if (settings.drawingTool === 'PENCIL' && !cell.isAlive) {
         cell.born();
+        resetLoopDetection();
     }
     if (settings.drawingTool === 'ERASER' && cell.isAlive) {
         cell.die();
+        resetLoopDetection();
     }
 } 

@@ -5,7 +5,6 @@ function Grid() {
     this.foundLoop = false;
     this.loopSize;
     this.foundLoopSize = false;
-    this.loopFirstElement;
 
     this.doIteration = () => {
         const newStates = [];
@@ -47,21 +46,21 @@ function Grid() {
         });
 
         if (settings.loopDetection) {
-            if (this.previousStates.has(representation)) {
+            if (!this.foundLoop && this.previousStates.has(representation)) {
                 this.foundLoop = true;
-                this.loopSize = 0;
-                this.loopFirstElement = representation;
+                this.foundLoopSize = false;
+                this.loopSize = -1;
                 this.previousStates = new Set();
             }
 
             if (this.foundLoop && !this.foundLoopSize) {
                 this.loopSize++;
-                if (representation === this.loopFirstElement) {
+                if (this.previousStates.has(representation)) {
                     this.foundLoopSize = true;
                 }
             }
 
-            if (!this.foundLoop) {
+            if (!this.foundLoop || !this.foundLoopSize) {
                 this.previousStates.add(representation);
             }
         }
@@ -70,8 +69,6 @@ function Grid() {
     this.resetLoopDetection = () => {
         this.previousStates = new Set();
         this.foundLoop = false;
-        this.loopSize = null;
         this.foundLoopSize = false;
-        this.loopFirstElement = null;
     };
 }
