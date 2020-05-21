@@ -1,16 +1,19 @@
 function Cell(index, isAlive) {
     this.index = index;
-    this.isAlive = isAlive;
     this.age = 0;
+    this.states = {
+        0: isAlive
+    };
 
-    this.show = (maxAge) => {
+    this.show = (maxAge, iteration) => {
         const {x, y, w, h} = indexToXY(this.index);
         const relativeAge = 76 - map(this.age, 0, maxAge, 0, 76);
         const { invertVisualization } = settings;
+        const isAlive = this.states[iteration];
 
         if (
-            (!invertVisualization && this.isAlive) ||
-            (invertVisualization && !this.isAlive)
+            (!invertVisualization && isAlive) ||
+            (invertVisualization && !isAlive)
         ){
             let [R, G, B] = [5, 5, 5];
 
@@ -28,7 +31,6 @@ function Cell(index, isAlive) {
             fill(...[ R, G, B ].map(c => Math.floor(c*10)));
             rect(x, y, w, h);
         }
-
     }
 
     this.getNeighborsIndex = () => {
@@ -75,16 +77,17 @@ function Cell(index, isAlive) {
         }).map(IJToIndex);
     }
 
-    this.born = () => {
-        this.isAlive=true;
+    this.born = (iteration) => {
+        this.states[iteration]=true;
         this.age=0;
     }
 
-    this.die = () => {
-        this.isAlive=false;
+    this.die = (iteration) => {
+        this.states[iteration]=false;
     }
 
-    this.survive = () => {
+    this.survive = (iteration) => {
+        this.states[iteration]=true;
         this.age++;
     }
 }

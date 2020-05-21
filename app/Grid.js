@@ -1,40 +1,28 @@
 function Grid() {
     this.minAge = 0;
     this.maxAge = 0;
-    this.aliveCells;
+    this.aliveCells = 0;
     this.previousStates = new Set();
     this.foundLoop = false;
     this.loopSize;
     this.foundLoopSize = false;
 
     this.doIteration = () => {
-        const newStates = [];
-        cells.forEach(c => {
-            const neighborsIndex = c.getNeighborsIndex();
-            const aliveNeighbors = neighborsIndex.reduce((count, index) => {
-                if (cells[index].isAlive) {
-                    count++;
-                }
-                return count;
-            }, 0);
-
-            if (c.isAlive && rules.survive.has(aliveNeighbors) ) {
-                newStates.push(c.survive);
-            } else if (!c.isAlive && rules.born.has(aliveNeighbors)) {
-                newStates.push(c.born);
-            } else {
-                newStates.push(c.die);
-            }
-        });
-
         this.minAge = cells[0].age;
         this.maxAge = cells[0].age;
-
         let representation = '';
         this.aliveCells = 0;
-        cells.forEach((c, i) => {
-            newStates[i].bind(c)();
-            if (c.isAlive) {
+
+        cells.forEach(c => {
+            const cellIsAlive = c.states[iterationCpt];
+
+            // We don't need to keep old states
+            // TODO check if that doesn't actually slow down the loop
+            if (iterationCpt > 1) {
+                delete c.states[iterationCpt - 1];
+            }
+
+            if (cellIsAlive) {
                 if (c.age < this.minAge) {
                     this.minAge = c.age;
                 }
@@ -46,6 +34,26 @@ function Grid() {
             } else {
                 representation += '0';
             }
+
+            c.show(this.maxAge, iterationCpt);
+
+            const neighborsIndex = c.getNeighborsIndex();
+
+            const aliveNeighbors = neighborsIndex.reduce((count, index) => {
+                if (cells[index].states[iterationCpt]) {
+                    count++;
+                }
+                return count;
+            }, 0);
+
+            if (cellIsAlive && rules.survive.has(aliveNeighbors) ) {
+                c.survive(iterationCpt+1);
+            } else if (!cellIsAlive && rules.born.has(aliveNeighbors)) {
+                c.born(iterationCpt+1);
+            } else {
+                c.die(iterationCpt+1);
+            }
+
         });
 
         if (settings.loopDetection) {
@@ -67,7 +75,7 @@ function Grid() {
                 this.previousStates.add(representation);
             }
         }
-    }
+    };
 
     this.resetLoopDetection = () => {
         this.previousStates = new Set();

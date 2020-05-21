@@ -8,6 +8,7 @@ let settings;
 let rules;
 let grid;
 
+let iterationCpt;
 let previousRunIteration;
 
 function resetLoopDetection() {
@@ -18,6 +19,7 @@ function resetGrid() {
     settings.nbCells = settings.ROWS * settings.COLS;
     cells = [];
 
+    iterationCpt = 0;
     grid = new Grid();
     for (var i=0; i<settings.nbCells; i++) {
         cells.push(new Cell(i, Math.random() < settings.initialDensity / 100));
@@ -34,6 +36,7 @@ function setup() {
     grid = new Grid();
     changePreset(0);
 
+    iterationCpt = 0;
     previousRunIteration = settings.runIterations;
 
     setNeighborsToSelect();
@@ -45,15 +48,15 @@ function setup() {
     initializeInterface();
 }
 
-let iterationCpt = 0;
 function draw() {
     background(0, 0, 0);
     frameRate(30);
 
     if (settings.runIterations) {
+        // To make sure the algorithm is in O(n) this function is also responsible
+        // for the drawing of the cells
         grid.doIteration();
     }
-    cells.forEach(c => c.show(grid.maxAge));
 
     updateLoopDetected(grid.foundLoop, grid.foundLoopSize, grid.loopSize);
 
@@ -61,20 +64,22 @@ function draw() {
         drawCell();
     }
 
-    if (settings.randomize && iterationCpt%100 === 0) {
+    if (settings.randomize && iterationCpt%10 === 0) {
         randomizeSettings();
-    }
-
-    if (grid.aliveCells === 0) {
-        resetGrid();
     }
 
     iterationCpt++;
 
-    // Draw FPS (rounded to 2 decimal places) at the bottom left of the screen
+    if (!grid.aliveCells) {
+        resetGrid();
+    }
+
+
+    // Draw FPS at the bottom left of the screen
     let fps = frameRate();
     fill(255);
     stroke(0);
+    text("Alive cells: " + grid.aliveCells, 10, height - 25);
     text("FPS: " + fps.toFixed(2), 10, height - 10);
 }
 

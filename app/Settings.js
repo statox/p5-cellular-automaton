@@ -10,9 +10,9 @@ function Settings() {
     this.neighborsAlgorithm = 'MOORE';
     this.neighborsToSelect;
     this.invertVisualization = false;
-    this.initialDensity = 50;
+    this.initialDensity = 25;
     this.drawingTool = 'PENCIL';
     this.drawing = false;
     this.randomize = false;
-    this.randomizationRules = new Set(['neighbors', 'birth', 'survive']);
+    this.randomizationRules = new Set(['preset', 'neighbors', 'birth', 'survive']);
 }
