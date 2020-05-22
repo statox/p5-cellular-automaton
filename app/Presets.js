@@ -29,7 +29,7 @@ const PRESETS = [
     {
         settings: {
             name: 'Dead islands',
-            description: 'An automata with island of dead cells which never resurect',
+            description: 'An automaton island of dead cells which never resurect',
             edgeWrapping: true,
             loopDetection: true,
             invertVisualization: true,
@@ -43,7 +43,7 @@ const PRESETS = [
     {
         settings: {
             name: 'Big block',
-            description: 'An automata with a big block in the center and sometimes alive edges',
+            description: 'An automaton a big block in the center and sometimes alive edges',
             edgeWrapping: false,
             loopDetection: true,
             invertVisualization: false,

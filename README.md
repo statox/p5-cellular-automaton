@@ -1,13 +1,13 @@
-# Cellular automaton
+# Cellular automata
 
-Using p5.js to play with cellular automaton.
+Using p5.js to play with cellular automata.
 
 # TODO
 Features I want to implement:
 
  - [X] Loop detection: Have a message saying when a loop has been detected and what is the length of the cycle
  - [ ] Statistics about the population: Number of cells alive, average age, oldest cell, etc...
- - [X] Interesting presets: Have a list of cool automaton for the user to choose
+ - [X] Interesting presets: Have a list of cool automata for the user to choose
  - [X] Preset saving: Have a way to store a cool automaton the user found
  - [ ] Preset import: Now that we can save a configuration, let's import it too
  - [X] Neigbors choice interface: Have a grid to let the user choose which cells should be included as neighbors
