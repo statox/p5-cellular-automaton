@@ -29,9 +29,6 @@
 
 /* Menu button */
 .open-menu {
-    position: fixed;
-    top: 20px;
-    left: 10px;
     z-index: 997;
     box-shadow: 3px 3px 3px rgba(51, 51, 51, 0.2);
 }
