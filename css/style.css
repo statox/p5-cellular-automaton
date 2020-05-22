@@ -80,7 +80,6 @@ a.btn-customized.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
 .dismiss {
     width: 35px;
     height: 35px;
-    /* position: left; */
     position: absolute;
     top: 10px;
     right: 10px;

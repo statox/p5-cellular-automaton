@@ -14,5 +14,6 @@ function Settings() {
     this.drawingTool = 'PENCIL';
     this.drawing = false;
     this.randomize = false;
+    this.randomizeFrequency = 50;
     this.randomizationRules = new Set(['preset', 'neighbors', 'birth', 'survive']);
 }

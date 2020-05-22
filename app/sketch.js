@@ -66,7 +66,7 @@ function draw() {
         drawCell();
     }
 
-    if (settings.randomize && iterationCpt%10 === 0) {
+    if (settings.randomize && iterationCpt%settings.randomizeFrequency === 0) {
         randomizeSettings();
     }
 

@@ -127,6 +127,10 @@ const updateInterfacePlayPauseBtnFromValue = () => {
     }
 };
 
+const updateInterfaceRandomizerFrequencyFromValue = () => {
+    document.getElementById("inputRandomFreq").value = settings.randomizeFrequency;
+};
+
 const updateInterfaceAllItemsFromValue = () => {
     updateInterfaceRulesFromValues();
     updateInterfaceEdgeWrappingFromValue();
@@ -144,6 +148,7 @@ const updateInterfaceAllItemsFromValue = () => {
 
 const initializeInterface = () => {
     updateInterfaceAllItemsFromValue();
+    updateInterfaceRandomizerFrequencyFromValue();
 };
 
 const updateBirthRule = (button, value) => {
@@ -254,6 +259,14 @@ const exportPresetClicked = () => {
 
 const toggleRandomize = () => {
     settings.randomize = !settings.randomize;
+
+    const freqInput = document.getElementById('inputRandomFreq');
+    const value = Number(freqInput.value);
+    if (typeof value === 'number' && value > 0) {
+        settings.randomizeFrequency = value;
+        updateInterfaceRandomizerFrequencyFromValue();
+    }
+
     updateInterfaceRandomizationToggleFromValue();
 }
 

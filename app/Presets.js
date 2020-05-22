@@ -170,7 +170,16 @@ const PRESETS = [
 
 const changePreset = (presetIndex) => {
     const newPreset = PRESETS[presetIndex];
-    const { ROWS, COLS, nbCells, runIterations, randomize, randomizationRules } = settings
+    const {
+        ROWS,
+        COLS,
+        nbCells,
+        runIterations,
+        randomize,
+        randomizationRules,
+        randomizeFrequency
+    } = settings;
+
     try {
         settings = JSON.parse(JSON.stringify(newPreset.settings));
     } catch (error) {
@@ -189,7 +198,7 @@ const changePreset = (presetIndex) => {
     settings.drawingTool = 'PENCIL';
     settings.drawing = false;
     settings.randomizationRules = randomizationRules;
-
+    settings.randomizeFrequency = randomizeFrequency;
 
     updateInterfaceAllItemsFromValue();
     resetLoopDetection();

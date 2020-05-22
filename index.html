@@ -121,9 +121,21 @@
                                       <p>Randomize</p>
                                   </td>
                                   <td class="col">
-                                      <span>When the Randomization is enabled, the system will randomly mutate the selected parameters to create cool visualizations</span>
+                                      <div>When the Randomization is enabled, the system will randomly mutate the selected parameters to create cool visualizations</div>
+                                      <div>The "Randomizer frequency" parameter is the number of iterations before each mutation of the settings. If you change this value you need to turn Randomization off and on again (to be fixed)</div>
                                       <hr/>
-                                      <button id='toggle-randomize-btn' class="btn" type="button" onclick="toggleRandomize()">Randomize</button>
+                                      <div class="row">
+                                          <button class="col-2" id='toggle-randomize-btn' class="btn" type="button" onclick="toggleRandomize()">Randomize</button>
+
+                                          <form class="col">
+                                              <div class="form-group row">
+                                                  <label for="random-frequency" class="col-sm-5 col-form-label">Randomizer frequency</label>
+                                                  <div class="col-sm-5">
+                                                      <input id="inputRandomFreq" type="number" min="1" class="form-control">
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>
                                       <hr/>
                                       <ul>
                                           <li><button id="input-random-preset"    type="checkbox" value="preset"    class="btn randomization-selection" onclick='updateRandomizationRule(this, "preset"   );'>Preset</button></li>
