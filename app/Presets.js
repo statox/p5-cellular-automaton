@@ -177,7 +177,9 @@ const changePreset = (presetIndex) => {
         runIterations,
         randomize,
         randomizationRules,
-        randomizeFrequency
+        randomizeFrequency,
+        resetOnEmptyGrid,
+        resetOnLoop
     } = settings;
 
     try {
@@ -199,6 +201,8 @@ const changePreset = (presetIndex) => {
     settings.drawing = false;
     settings.randomizationRules = randomizationRules;
     settings.randomizeFrequency = randomizeFrequency;
+    settings.resetOnEmptyGrid = resetOnEmptyGrid;
+    settings.resetOnLoop = resetOnLoop;
 
     updateInterfaceAllItemsFromValue();
     resetLoopDetection();

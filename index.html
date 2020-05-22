@@ -118,6 +118,17 @@
                               </tr>
                               <tr class="row">
                                   <td class="col-2">
+                                      <p>Auto reset</p>
+                                  </td>
+                                  <td class="col">
+                                      <span>Define when the grid will be automatically reset.</span>
+                                      <hr/>
+                                      <button id="inputResetEmptyGrid" type="button" class="btn" value="EMPTY" onclick="updateResetSettings(this);">On empty grid</button>
+                                      <button id="inputResetLoop"      type="button" class="btn" value="LOOP"  onclick="updateResetSettings(this);">On loop detected</button>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-2">
                                       <p>Randomize</p>
                                   </td>
                                   <td class="col">
@@ -163,7 +174,7 @@
                                   </td>
                                   <td class="col">
                                       <span>Allow cells at the opposite sides of the grid to be considered as neigbors</span>
-                                  <hr/>
+                                      <hr/>
                                       <button id="inputEdgeWrapping" type="button" class="btn" onclick="updateEdgeWrapping(this);">Edge Wrapping</button>
                                   </td>
                               </tr>
@@ -262,8 +273,8 @@
                               </tr>
                           </tbody>
                       </table>
+                  </div>
               </div>
-          </div>
           </nav>
           <!-- End sidebar -->
 

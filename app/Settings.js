@@ -16,4 +16,6 @@ function Settings() {
     this.randomize = false;
     this.randomizeFrequency = 50;
     this.randomizationRules = new Set(['preset', 'neighbors', 'birth', 'survive']);
+    this.resetOnEmptyGrid = true;
+    this.resetOnLoop = true;
 }

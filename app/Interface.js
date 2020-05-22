@@ -131,6 +131,23 @@ const updateInterfaceRandomizerFrequencyFromValue = () => {
     document.getElementById("inputRandomFreq").value = settings.randomizeFrequency;
 };
 
+const updateInterfaceResetConditionsFromValue = () => {
+    const emptyGridBtn = document.getElementById('inputResetEmptyGrid');
+    const loopBtn = document.getElementById('inputResetLoop');
+
+    if (settings.resetOnEmptyGrid) {
+        emptyGridBtn.classList.add('btn-success');
+    } else {
+        emptyGridBtn.classList.remove('btn-success');
+    }
+
+    if (settings.resetOnLoop) {
+        loopBtn.classList.add('btn-success');
+    } else {
+        loopBtn.classList.remove('btn-success');
+    }
+};
+
 const updateInterfaceAllItemsFromValue = () => {
     updateInterfaceRulesFromValues();
     updateInterfaceEdgeWrappingFromValue();
@@ -144,6 +161,7 @@ const updateInterfaceAllItemsFromValue = () => {
     updateInterfaceRandomizationToggleFromValue();
     updateInterfaceRandomizationRulesFromValue();
     updateInterfacePlayPauseBtnFromValue();
+    updateInterfaceResetConditionsFromValue();
 };
 
 const initializeInterface = () => {
@@ -289,4 +307,16 @@ const updateRandomizationRule = (button, ruleName) => {
 const toggleDrawing = () => {
     settings.drawing = !settings.drawing;
     updateInterfaceDrawingToolsFromValue();
+}
+
+const updateResetSettings = (button) => {
+    const condition = button.value;
+    if (condition === 'EMPTY') {
+        settings.resetOnEmptyGrid = !settings.resetOnEmptyGrid;
+    }
+    if (condition === 'LOOP') {
+        settings.resetOnLoop = !settings.resetOnLoop;
+    }
+
+    updateInterfaceResetConditionsFromValue();
 }

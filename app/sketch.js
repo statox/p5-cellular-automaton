@@ -70,7 +70,10 @@ function draw() {
         randomizeSettings();
     }
 
-    if (!grid.aliveCells) {
+    if (
+        (!grid.aliveCells && settings.resetOnEmptyGrid) ||
+        (grid.foundLoopSize && settings.resetOnLoop)
+    ){
         resetGrid();
     }
 
