@@ -1,7 +1,10 @@
 function Grid() {
     this.minAge = 0;
     this.maxAge = 0;
+    this.meanAge = 0;
     this.aliveCells = 0;
+    this.newCells = 0;
+    this.fillingPercentage = 0;
     this.previousStates = new Set();
     this.foundLoop = false;
     this.loopSize;
@@ -10,6 +13,8 @@ function Grid() {
     this.doIteration = () => {
         this.minAge = cells[0].age;
         this.maxAge = cells[0].age;
+        this.meanAge = 0;
+        this.newCells = 0;
         let representation = '';
         this.aliveCells = 0;
 
@@ -29,7 +34,11 @@ function Grid() {
                 if (c.age > this.maxAge) {
                     this.maxAge = c.age;
                 }
+                if (c.age === 0) {
+                    this.newCells++;
+                }
                 representation += '1';
+                this.meanAge += c.age;
                 this.aliveCells++;
             } else {
                 representation += '0';
@@ -55,6 +64,9 @@ function Grid() {
             }
 
         });
+
+        this.meanAge = this.aliveCells ? this.meanAge / this.aliveCells : 0;
+        this.fillingPercentage = 100 * this.aliveCells / settings.nbCells;
 
         if (settings.loopDetection) {
             if (!this.foundLoop && this.previousStates.has(representation)) {

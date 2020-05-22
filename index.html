@@ -316,22 +316,39 @@
                               </tr>
                               <tr class="row">
                                   <td class="col-2">
-                                      Drawing tools
-                                  </td>
-                                  <td class="col">
-                                      <button id="toggleDrawingBtn" type="button" class="btn" onclick='toggleDrawing();'>Enable drawing</button>
-                                      <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
-                                      <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
-                                  </td>
-                              </tr>
-                              <tr class="row">
-                                  <td class="col-2">
                                       Loop detection
                                   </td>
                                   <td class="col">
                                       <div id="noloop-detected-notice">No loop detected.</div>
                                       <div id="loop-detected-notice" class="invisible">Loop detected.</div>
                                       <div id="loop-size-detected-notice" class="invisible">Loop size:</div>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-2">
+                                      Cells stats
+                                  </td>
+                                  <td class="col">
+                                      <div>
+                                          Min age: <span id="stats-min-age"></span>
+                                          Max age: <span id="stats-max-age"></span>
+                                          Mean age: <span id="stats-mean-age"></span>
+                                      </div>
+                                      <div>
+                                          Iteration: <span id="stats-iteration"></span>
+                                          New cells: <span id="stats-new-cells"></span>
+                                          Filling percentage: <span id="stats-filling-percentage"></span>
+                                      </div>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-2">
+                                      Drawing tools
+                                  </td>
+                                  <td class="col">
+                                      <button id="toggleDrawingBtn" type="button" class="btn" onclick='toggleDrawing();'>Enable drawing</button>
+                                      <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
+                                      <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
                                   </td>
                               </tr>
                           </tbody>

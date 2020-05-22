@@ -223,8 +223,19 @@ const updateNeighborsAlgorithm = (button, algo) => {
     resetLoopDetection();
 };
 
-const updateLoopDetected = (showLoop, showLoopSize, loopSize) => {
-    if (showLoop) {
+const updateStatistics = () => {
+    const {
+        foundLoop,
+        foundLoopSize,
+        loopSize,
+        minAge,
+        maxAge,
+        meanAge,
+        fillingPercentage,
+        newCells
+    } = grid;
+
+    if (foundLoop) {
         document.getElementById("noloop-detected-notice").classList.add("invisible");
         document.getElementById("noloop-detected-notice").classList.remove("visible");
 
@@ -246,9 +257,17 @@ const updateLoopDetected = (showLoop, showLoopSize, loopSize) => {
         document.getElementById("loop-size-detected-notice").classList.add("invisible");
     }
 
-    if (showLoopSize) {
+    if (foundLoopSize) {
         document.getElementById("loop-size-detected-notice").innerText = `Loop size ${loopSize}`;
     }
+
+    document.getElementById("stats-min-age").innerText = minAge;
+    document.getElementById("stats-max-age").innerText = maxAge;
+    document.getElementById("stats-mean-age").innerText = meanAge.toFixed(0);
+
+    document.getElementById("stats-iteration").innerText = iterationCpt;
+    document.getElementById("stats-new-cells").innerText = newCells;
+    document.getElementById("stats-filling-percentage").innerText = fillingPercentage.toFixed(0) + '%';
 };
 
 const updatePreset = (select) => {
