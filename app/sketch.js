@@ -56,6 +56,9 @@ function draw() {
         // To make sure the algorithm is in O(n) this function is also responsible
         // for the drawing of the cells
         grid.doIteration();
+        iterationCpt++;
+    } else {
+        cells.forEach(c => c.show(grid.maxAge, iterationCpt));
     }
 
     updateLoopDetected(grid.foundLoop, grid.foundLoopSize, grid.loopSize);
@@ -68,7 +71,6 @@ function draw() {
         randomizeSettings();
     }
 
-    iterationCpt++;
 
     if (!grid.aliveCells) {
         resetGrid();
