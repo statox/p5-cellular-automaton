@@ -71,8 +71,7 @@
       <div class="wrapper">
           <!-- Sidebar -->
           <nav class="sidebar">
-              <div class="container">
-
+              <div class="container-fluid">
                   <!-- close sidebar menu -->
                   <div class="dismiss">
                       <i class="fas fa-arrow-left"></i>
@@ -82,13 +81,13 @@
                   <div class="row">
                       <h1 id="settings" style="color:black">Settings</h1>
                       <hr/>
-                      <table class="table" id="settings-content">
+                      <table class="table table-striped" id="settings-content">
                           <tbody>
                               <tr class="row">
-                                  <td class="col-sm-2">
+                                  <td class="col-2">
                                       <p>Size of the grid and control</p>
                                   </td>
-                                  <td class="col-sm-10">
+                                  <td class="col">
                                       <span>Change the size of the grid and the number of cells generated</span>
                                       <span><i class="reset-simulation-warning"><br/>Modifying these settings resets the simulation with random cells</i></span>
                                       <hr/>
@@ -118,10 +117,10 @@
                                   </td>
                               </tr>
                               <tr class="row">
-                                  <td class="col-sm-2">
+                                  <td class="col-2">
                                       <p>Randomize</p>
                                   </td>
-                                  <td class="col-sm-10">
+                                  <td class="col">
                                       <span>When the Randomization is enabled, the system will randomly mutate the selected parameters to create cool visualizations</span>
                                       <hr/>
                                       <button id='toggle-randomize-btn' class="btn" type="button" onclick="toggleRandomize()">Randomize</button>
@@ -137,30 +136,30 @@
                                   </td>
                               </tr>
                               <tr class="row">
-                                  <td class="col-sm-2">
+                                  <td class="col-2">
                                       <p>Preset configurations</p>
                                   </td>
-                                  <td class="col-sm-10">
+                                  <td class="col">
                                       <span id="preset-description"></span>
                                       <hr/>
                                       <select id="preset-select" onchange="updatePreset(this)"></select>
                                   </td>
                               </tr>
                               <tr class="row">
-                                  <td class="col-sm-2">
+                                  <td class="col-2">
                                       <p>Edge wrapping</p>
                                   </td>
-                                  <td class="col-sm-10">
+                                  <td class="col">
                                       <span>Allow cells at the opposite sides of the grid to be considered as neigbors</span>
                                   <hr/>
                                       <button id="inputEdgeWrapping" type="button" class="btn" onclick="updateEdgeWrapping(this);">Edge Wrapping</button>
                                   </td>
                               </tr>
                               <tr class="row">
-                                  <td class="col-sm-2">
+                                  <td class="col-2">
                                       <p>Invert visualization</p>
                                   </td>
-                                  <td class="col-sm-10">
+                                  <td class="col">
                                       <span>When enabled don't show the alive cells and colorize the dead ones</span>
                                       <span>This can create some better visualizations for some automaton</span>
                                       <hr/>
@@ -168,10 +167,10 @@
                                   </td>
                               </tr>
                               <tr class="row">
-                                  <td class="col-sm-2">
+                                  <td class="col-2">
                                       <p>Neighbors selection</p>
                                   </td>
-                                  <td class="col-sm-10">
+                                  <td class="col">
                                       <span>Define which cells are selected as neighbors</span>
                                       <ul>
                                           <li>Moore: 8 neighbors. All direction</li>
@@ -210,10 +209,10 @@
                                   </td>
                               </tr>
                               <tr class="row">
-                                  <td class="col-sm-2">
+                                  <td class="col-2">
                                       <p>Birth conditions</p>
                                   </td>
-                                  <td class="col-sm-10">
+                                  <td class="col">
                                       <span>The number of living neigbors which allows a cell to become alive</span>
                                       <hr/>
                                       <span>
@@ -230,10 +229,10 @@
                                   </td>
                               </tr>
                               <tr class="row">
-                                  <td class="col-sm-2">
+                                  <td class="col-2">
                                       <p>Survive conditions</p>
                                   </td>
-                                  <td class="col-sm-10">
+                                  <td class="col">
                                       <span>The number of living neigbors which allows a cell to stay alive</span>
                                       <hr/>
                                       <span>
@@ -251,8 +250,8 @@
                               </tr>
                           </tbody>
                       </table>
-                  </div>
               </div>
+          </div>
           </nav>
           <!-- End sidebar -->
 
@@ -263,7 +262,7 @@
                   <!-- Jumbotron header -->
                   <div class="jumbotron" style="text-align:center">
                       <h1>Cellular Automaton</h1>
-                      <p>A tribute to John Conway - v 0.1</p>
+                      <p>A tribute to John Conway - v 0.1-3</p>
                   </div>
 
                   <!-- open sidebar menu -->
@@ -274,8 +273,10 @@
                   <!-- The simulation -->
                   <div class="row">
                       <h1 id="simulation">Automaton</h1>
-
-                      <div >
+                      <div id="automaton-content">
+                          <div class="col-md-6" id="canvasDiv"></div>
+                      </div>
+                      <div>
                           <span id="loop-detected-notice" class="invisible">Loop detected.</span>
                           <span id="loop-size-detected-notice" class="invisible">Loop size:</span>
                       </div>
@@ -284,9 +285,6 @@
                               <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
                               <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
                           </span>
-                      </div>
-                      <div id="automaton-content" class="">
-                          <div class="col-md-6" id="canvasDiv"></div>
                       </div>
                   </div>
 
