@@ -3,21 +3,28 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ceullar Automaton</title>
+    <title>Cellular Automaton</title>
     <style> body {padding: 0; margin: 0;} </style>
 
     <!-- jQuery required by bootstrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
+    <!-- popper.js required by bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
     <!-- bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <!-- Font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
+    <!-- Custom css -->
+    <link rel="stylesheet" type="text/css" href="index.css">
 
     <!-- p5.js -->
     <script src="p5/p5.min.js"></script>
@@ -53,7 +60,7 @@
           <div class="row">
               <h1 id="settings">Settings</h1>
               <hr/>
-              <table class="table table-bordered collapse in" id="settings-content">
+              <table class="table" id="settings-content">
                   <tbody>
                       <tr class="row">
                           <td class="col-sm-2">
@@ -93,10 +100,10 @@
                           <td class="col-sm-2">
                               <p>Randomize</p>
                           </td>
-                          <td class="col-sm-3">
+                          <td class="col-sm-7">
                               <span>When the Randomization is enabled, the system will randomly mutate the selected parameters to create cool visualizations</span>
                           </td>
-                          <td class="col-sm-7">
+                          <td class="col-sm-3">
                               <button id='toggle-randomize-btn' class="btn" type="button" onclick="toggleRandomize()">Randomize</button>
                               <hr/>
                               <ul>
@@ -113,10 +120,10 @@
                           <td class="col-sm-2">
                               <p>Preset configurations</p>
                           </td>
-                          <td class="col-sm-3">
+                          <td class="col-sm-7">
                               <span id="preset-description"></span>
                           </td>
-                          <td class="col-sm-7">
+                          <td class="col-sm-3">
                               <select id="preset-select" onchange="updatePreset(this)"></select>
                           </td>
                       </tr>
@@ -235,8 +242,7 @@
           <!-- The simulation -->
           <div class="row">
               <h1 id="simulation">Automaton</h1>
-              <hr/>
-              <div style="font-size: x-large" >
+              <div >
                   <span id="loop-detected-notice" class="invisible">Loop detected.</span>
                   <span id="loop-size-detected-notice" class="invisible">Loop size:</span>
               </div>
@@ -246,7 +252,7 @@
                       <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
                   </span>
               </div>
-              <div id="automaton-content" class="collapse in">
+              <div id="automaton-content" class="">
                   <div class="col-md-6" id="canvasDiv"></div>
               </div>
           </div>
@@ -257,11 +263,8 @@
               <hr/>
               <div>
                   <h2>Save the current configuration.</h2>
-                  <p>
                   <span>The "Save" button add the current configuration to the list of presets.</span>
                   <span>The "Export" button allows you to download the current configuration as a JSON file.</span>
-                  <p>
-
                   <form>
                       <div class="form-group row">
                           <label class="col-sm-2 col-form-label">Name</label>
