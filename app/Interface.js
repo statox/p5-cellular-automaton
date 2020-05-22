@@ -207,6 +207,9 @@ const updateNeighborsAlgorithm = (button, algo) => {
 
 const updateLoopDetected = (showLoop, showLoopSize, loopSize) => {
     if (showLoop) {
+        document.getElementById("noloop-detected-notice").classList.add("invisible");
+        document.getElementById("noloop-detected-notice").classList.remove("visible");
+
         document.getElementById("loop-detected-notice").classList.remove("invisible");
         document.getElementById("loop-detected-notice").classList.add("visible");
 
@@ -215,6 +218,9 @@ const updateLoopDetected = (showLoop, showLoopSize, loopSize) => {
 
         document.getElementById("loop-size-detected-notice").innerText = 'Calculating loop size';
     } else {
+        document.getElementById("noloop-detected-notice").classList.remove("invisible");
+        document.getElementById("noloop-detected-notice").classList.add("visible");
+
         document.getElementById("loop-detected-notice").classList.remove("visible");
         document.getElementById("loop-detected-notice").classList.add("invisible");
 

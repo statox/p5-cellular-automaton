@@ -274,7 +274,7 @@
                   <!-- Jumbotron header -->
                   <div class="jumbotron" style="text-align:center">
                       <h1>Cellular Automata</h1>
-                      <p>A tribute to John Conway - v 0.1-4</p>
+                      <p>A tribute to John Conway - v 0.1-5</p>
                   </div>
 
                   <!-- The simulation -->
@@ -288,25 +288,47 @@
                               </a>
                           </span>
                       </h1>
+                      <hr/>
                       <div id="automaton-content">
                           <div id="canvasDiv"></div>
                       </div>
-                      <div>
-                          <span id="loop-detected-notice" class="invisible">Loop detected.</span>
-                          <span id="loop-size-detected-notice" class="invisible">Loop size:</span>
-                      </div>
-                      <div>
-                          <span>
-                              <button id="play-pause-btn" class="btn btn-default btn-play-pause" type="button" onclick="toggleRun()"></button>
-                              <button id="toggleDrawingBtn" type="button" class="btn" onclick='toggleDrawing();'>Enable drawing</button>
-                              <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
-                              <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
-                          </span>
-                      </div>
+                      <h2>Statistics & Controls</h2>
+                      <table class="table" id="stats-content">
+                          <tbody>
+                              <tr class="row">
+                                  <td class="col-2">
+                                      Simulation control
+                                  </td>
+                                  <td class="col">
+                                      <button id="play-pause-btn" class="btn btn-default btn-play-pause" type="button" onclick="toggleRun()"></button>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-2">
+                                      Drawing tools
+                                  </td>
+                                  <td class="col">
+                                      <button id="toggleDrawingBtn" type="button" class="btn" onclick='toggleDrawing();'>Enable drawing</button>
+                                      <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
+                                      <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-2">
+                                      Loop detection
+                                  </td>
+                                  <td class="col">
+                                      <div id="noloop-detected-notice">No loop detected.</div>
+                                      <div id="loop-detected-notice" class="invisible">Loop detected.</div>
+                                      <div id="loop-size-detected-notice" class="invisible">Loop size:</div>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
                   </div>
 
                   <!-- Preset imports and exports -->
-                  <div class="row">
+                  <div>
                       <h1 id="presets">Presets</h1>
                       <hr/>
                       <div>
