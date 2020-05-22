@@ -36,30 +36,16 @@
     <script src="app/Cell.js"></script>
     <script src="app/Grid.js"></script>
     <script src="app/Rules.js"></script>
-    <script src="app/Interface.js"></script>
     <script src="app/Presets.js"></script>
     <script src="app/Neighbors.js"></script>
     <script src="app/Settings.js"></script>
     <script src="app/Drawing.js"></script>
     <script src="app/Randomizer.js"></script>
 
-    <script>
-        jQuery(document).ready(function() {
-            $('.dismiss, .overlay').on('click', function() {
-                $('.sidebar').removeClass('active');
-                $('.overlay').removeClass('active');
-            });
-
-            $('.open-menu').on('click', function(e) {
-                e.preventDefault();
-                $('.sidebar').addClass('active');
-                $('.overlay').addClass('active');
-                // close opened sub-menus
-                $('.collapse.show').toggleClass('show');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-        });
-    </script>
+    <!-- My ugly homemade front framework -->
+    <script src="app/interface/setters.js"></script>
+    <script src="app/interface/getters.js"></script>
+    <script src="app/interface/utils.js"></script>
 
     <!-- Github fork me ribbon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
