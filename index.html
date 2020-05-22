@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <!-- Custom css -->
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!-- p5.js -->
     <script src="p5/p5.min.js"></script>
@@ -43,248 +43,282 @@
     <script src="app/Drawing.js"></script>
     <script src="app/Randomizer.js"></script>
 
+    <script>
+        jQuery(document).ready(function() {
+            $('.dismiss, .overlay').on('click', function() {
+                $('.sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('.open-menu').on('click', function(e) {
+                e.preventDefault();
+                $('.sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                // close opened sub-menus
+                $('.collapse.show').toggleClass('show');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+
     <!-- Github fork me ribbon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
   </head>
   <body>
       <a class="github-fork-ribbon" href="https://github.com/statox/p5-cellular-automaton" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 
-      <div class="container">
-          <!-- Jumbotron header -->
-          <div class="jumbotron" style="text-align:center">
-              <h1>Cellular Automaton</h1>
-              <p>A tribute to John Conway</p>
-          </div>
+      <!-- Wrapper -->
+      <div class="wrapper">
+          <!-- Sidebar -->
+          <nav class="sidebar">
+              <div class="container">
 
-          <!-- Settings -->
-          <div class="row">
-              <h1 id="settings">Settings</h1>
-              <hr/>
-              <table class="table" id="settings-content">
-                  <tbody>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Size of the grid and control</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>Change the size of the grid and the number of cells generated</span>
-                              <span><i class="reset-simulation-warning"><br/>Modifying these settings resets the simulation with random cells</i></span>
-                          </td>
-                          <td class="col-sm-3">
-                              <form>
-                                  <div class="form-group row">
-                                      <label for="columns" class="col-sm-5 col-form-label">Columns</label>
-                                      <div class="col-sm-5">
-                                          <input id="inputCOLS" type="number" class="form-control">
-                                      </div>
-                                  </div>
-                                  <div class="form-group row">
-                                      <label for="rows" class="col-sm-5 col-form-label">Rows</label>
-                                      <div class="col-sm-5">
-                                          <input id="inputROWS" type="number" class="form-control">
-                                      </div>
-                                  </div>
-                                  <div class="form-group row">
-                                      <label for="density" class="col-sm-5 col-form-label">Initial density of the grid</label>
-                                      <div class="col-sm-5">
-                                          <input id="inputInitialDensity" type="number" min="0" max="100" class="form-control">
-                                      </div>
-                                  </div>
+                  <!-- close sidebar menu -->
+                  <div class="dismiss">
+                      <i class="fas fa-arrow-left"></i>
+                  </div>
 
-                                  <button id="play-pause-btn" class="btn btn-default" type="button" onclick="toggleRun()"></button>
-                                  <button class="btn btn-danger" type="button" onclick="setSize()">Reset</button>
-                              </form>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Randomize</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>When the Randomization is enabled, the system will randomly mutate the selected parameters to create cool visualizations</span>
-                          </td>
-                          <td class="col-sm-3">
-                              <button id='toggle-randomize-btn' class="btn" type="button" onclick="toggleRandomize()">Randomize</button>
-                              <hr/>
-                              <ul>
-                                  <li><button id="input-random-preset"    type="checkbox" value="preset"    class="btn randomization-selection" onclick='updateRandomizationRule(this, "preset"   );'>Preset</button></li>
-                                  <li><button id="input-random-neighbors" type="checkbox" value="neighbors" class="btn randomization-selection" onclick='updateRandomizationRule(this, "neighbors");'>Neighbors selection</button></li>
-                                  <li><button id="input-random-birth"     type="checkbox" value="birth"     class="btn randomization-selection" onclick='updateRandomizationRule(this, "birth"    );'>Birth rules</button></li>
-                                  <li><button id="input-random-survive"   type="checkbox" value="survive"   class="btn randomization-selection" onclick='updateRandomizationRule(this, "survive"  );'>Survive rules</button></li>
-                                  <li><button id="input-random-edge"      type="checkbox" value="edge"      class="btn randomization-selection" onclick='updateRandomizationRule(this, "edge"     );'>Edge wrapping</button></li>
-                                  <li><button id="input-random-invert"    type="checkbox" value="invert"    class="btn randomization-selection" onclick='updateRandomizationRule(this, "invert"   );'>Inverted visualization</button></li>
-                              </ul>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Preset configurations</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span id="preset-description"></span>
-                          </td>
-                          <td class="col-sm-3">
-                              <select id="preset-select" onchange="updatePreset(this)"></select>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Edge wrapping</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>Allow cells at the opposite sides of the grid to be considered as neigbors</span>
-                          </td>
-                          <td class="col-sm-3">
-                              <button id="inputEdgeWrapping" type="button" class="btn" onclick="updateEdgeWrapping(this);">Edge Wrapping</button>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Invert visualization</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>When enabled don't show the alive cells and colorize the dead ones</span>
-                              <spane>This can create some better visualizations for some automaton</span>
-                          </td>
-                          <td class="col-sm-3">
-                              <button id="inputInvertVis" type="button" class="btn" onclick="updateInvertVis(this);">Invert visualization</button>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Neighbors selection</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>Define which cells are selected as neighbors</span>
-                              <ul>
-                                  <li>Moore: 8 neighbors. All direction</li>
-                                  <li>Cardinal: 4 neighbors. N, W, S and E only</li>
-                                  <li>Diagonal: 4 neighbors. NW, NE, SW and SE only</li>
-                                  <li>ECA: 2 neighbors. W and E</li>
-                              </ul>
-                          </td>
-                          <td class="col-sm-3">
-                              <div>
-                                  <div>
-                                      <button id="algo-MOORE"    type="button" class="algo-selection btn" value="MOORE"    onclick="updateNeighborsAlgorithm(this)">Moore</button>
-                                      <button id="algo-CARDINAL" type="button" class="algo-selection btn" value="CARDINAL" onclick="updateNeighborsAlgorithm(this)">Cardinal</button>
-                                      <button id="algo-DIAGONAL" type="button" class="algo-selection btn" value="DIAGONAL" onclick="updateNeighborsAlgorithm(this)">Diagonal</button>
-                                      <button id="algo-ECA"      type="button" class="algo-selection btn" value="ECA"      onclick="updateNeighborsAlgorithm(this)">ECA</button>
-                                  </div>
-                                  <div>
-                                      <table class="table table-bordered">
-                                          <tr>
-                                              <td><button id="neighbors-NW" type="button" class="btn" onclick="updateNeighborSelection('NW')">NW</button></td>
-                                              <td><button id="neighbors-N"  type="button" class="btn" onclick="updateNeighborSelection('N')">N</button></td>
-                                              <td><button id="neighbors-NE" type="button" class="btn" onclick="updateNeighborSelection('NE')">NE</button></td>
-                                          </tr>
-                                          <tr>
-                                              <td><button id="neighbors-W"    type="button" class="btn" onclick="updateNeighborSelection('W')">W</button></td>
-                                              <td><button id="neighbors-SELF" type="button" class="btn" onclick="updateNeighborSelection('SELF')">Self</button></td>
-                                              <td><button id="neighbors-E"    type="button" class="btn" onclick="updateNeighborSelection('E')">E</button></td>
-                                          </tr>
-                                          <tr>
-                                              <td><button id="neighbors-SW" type="button" class="btn" onclick="updateNeighborSelection('SW')">SW</button></td>
-                                              <td><button id="neighbors-S"  type="button" class="btn" onclick="updateNeighborSelection('S')">S</button></td>
-                                              <td><button id="neighbors-SE" type="button" class="btn" onclick="updateNeighborSelection('SE')">SE</button></td>
-                                          </tr>
-                                      </table>
+                  <!-- Settings -->
+                  <div class="row">
+                      <h1 id="settings" style="color:black">Settings</h1>
+                      <hr/>
+                      <table class="table" id="settings-content">
+                          <tbody>
+                              <tr class="row">
+                                  <td class="col-sm-2">
+                                      <p>Size of the grid and control</p>
+                                  </td>
+                                  <td class="col-sm-10">
+                                      <span>Change the size of the grid and the number of cells generated</span>
+                                      <span><i class="reset-simulation-warning"><br/>Modifying these settings resets the simulation with random cells</i></span>
+                                      <hr/>
+                                      <form>
+                                          <div class="form-group row">
+                                              <label for="columns" class="col-sm-5 col-form-label">Columns</label>
+                                              <div class="col-sm-5">
+                                                  <input id="inputCOLS" type="number" class="form-control">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <label for="rows" class="col-sm-5 col-form-label">Rows</label>
+                                              <div class="col-sm-5">
+                                                  <input id="inputROWS" type="number" class="form-control">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <label for="density" class="col-sm-5 col-form-label">Initial density of the grid</label>
+                                              <div class="col-sm-5">
+                                                  <input id="inputInitialDensity" type="number" min="0" max="100" class="form-control">
+                                              </div>
+                                          </div>
+
+                                          <button id="play-pause-btn" class="btn btn-default" type="button" onclick="toggleRun()"></button>
+                                          <button class="btn btn-danger" type="button" onclick="setSize()">Reset</button>
+                                      </form>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-sm-2">
+                                      <p>Randomize</p>
+                                  </td>
+                                  <td class="col-sm-10">
+                                      <span>When the Randomization is enabled, the system will randomly mutate the selected parameters to create cool visualizations</span>
+                                      <hr/>
+                                      <button id='toggle-randomize-btn' class="btn" type="button" onclick="toggleRandomize()">Randomize</button>
+                                      <hr/>
+                                      <ul>
+                                          <li><button id="input-random-preset"    type="checkbox" value="preset"    class="btn randomization-selection" onclick='updateRandomizationRule(this, "preset"   );'>Preset</button></li>
+                                          <li><button id="input-random-neighbors" type="checkbox" value="neighbors" class="btn randomization-selection" onclick='updateRandomizationRule(this, "neighbors");'>Neighbors selection</button></li>
+                                          <li><button id="input-random-birth"     type="checkbox" value="birth"     class="btn randomization-selection" onclick='updateRandomizationRule(this, "birth"    );'>Birth rules</button></li>
+                                          <li><button id="input-random-survive"   type="checkbox" value="survive"   class="btn randomization-selection" onclick='updateRandomizationRule(this, "survive"  );'>Survive rules</button></li>
+                                          <li><button id="input-random-edge"      type="checkbox" value="edge"      class="btn randomization-selection" onclick='updateRandomizationRule(this, "edge"     );'>Edge wrapping</button></li>
+                                          <li><button id="input-random-invert"    type="checkbox" value="invert"    class="btn randomization-selection" onclick='updateRandomizationRule(this, "invert"   );'>Inverted visualization</button></li>
+                                      </ul>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-sm-2">
+                                      <p>Preset configurations</p>
+                                  </td>
+                                  <td class="col-sm-10">
+                                      <span id="preset-description"></span>
+                                      <hr/>
+                                      <select id="preset-select" onchange="updatePreset(this)"></select>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-sm-2">
+                                      <p>Edge wrapping</p>
+                                  </td>
+                                  <td class="col-sm-10">
+                                      <span>Allow cells at the opposite sides of the grid to be considered as neigbors</span>
+                                  <hr/>
+                                      <button id="inputEdgeWrapping" type="button" class="btn" onclick="updateEdgeWrapping(this);">Edge Wrapping</button>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-sm-2">
+                                      <p>Invert visualization</p>
+                                  </td>
+                                  <td class="col-sm-10">
+                                      <span>When enabled don't show the alive cells and colorize the dead ones</span>
+                                      <span>This can create some better visualizations for some automaton</span>
+                                      <hr/>
+                                      <button id="inputInvertVis" type="button" class="btn" onclick="updateInvertVis(this);">Invert visualization</button>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-sm-2">
+                                      <p>Neighbors selection</p>
+                                  </td>
+                                  <td class="col-sm-10">
+                                      <span>Define which cells are selected as neighbors</span>
+                                      <ul>
+                                          <li>Moore: 8 neighbors. All direction</li>
+                                          <li>Cardinal: 4 neighbors. N, W, S and E only</li>
+                                          <li>Diagonal: 4 neighbors. NW, NE, SW and SE only</li>
+                                          <li>ECA: 2 neighbors. W and E</li>
+                                      </ul>
+                                      <hr/>
+                                      <div>
+                                          <div>
+                                              <button id="algo-MOORE"    type="button" class="algo-selection btn" value="MOORE"    onclick="updateNeighborsAlgorithm(this)">Moore</button>
+                                              <button id="algo-CARDINAL" type="button" class="algo-selection btn" value="CARDINAL" onclick="updateNeighborsAlgorithm(this)">Cardinal</button>
+                                              <button id="algo-DIAGONAL" type="button" class="algo-selection btn" value="DIAGONAL" onclick="updateNeighborsAlgorithm(this)">Diagonal</button>
+                                              <button id="algo-ECA"      type="button" class="algo-selection btn" value="ECA"      onclick="updateNeighborsAlgorithm(this)">ECA</button>
+                                          </div>
+                                          <div>
+                                              <table class="table table-bordered">
+                                                  <tr>
+                                                      <td><button id="neighbors-NW" type="button" class="btn" onclick="updateNeighborSelection('NW')">NW</button></td>
+                                                      <td><button id="neighbors-N"  type="button" class="btn" onclick="updateNeighborSelection('N')">N</button></td>
+                                                      <td><button id="neighbors-NE" type="button" class="btn" onclick="updateNeighborSelection('NE')">NE</button></td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td><button id="neighbors-W"    type="button" class="btn" onclick="updateNeighborSelection('W')">W</button></td>
+                                                      <td><button id="neighbors-SELF" type="button" class="btn" onclick="updateNeighborSelection('SELF')">Self</button></td>
+                                                      <td><button id="neighbors-E"    type="button" class="btn" onclick="updateNeighborSelection('E')">E</button></td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td><button id="neighbors-SW" type="button" class="btn" onclick="updateNeighborSelection('SW')">SW</button></td>
+                                                      <td><button id="neighbors-S"  type="button" class="btn" onclick="updateNeighborSelection('S')">S</button></td>
+                                                      <td><button id="neighbors-SE" type="button" class="btn" onclick="updateNeighborSelection('SE')">SE</button></td>
+                                                  </tr>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-sm-2">
+                                      <p>Birth conditions</p>
+                                  </td>
+                                  <td class="col-sm-10">
+                                      <span>The number of living neigbors which allows a cell to become alive</span>
+                                      <hr/>
+                                      <span>
+                                          <button id="inputBirth0" type="checkbox" class="btn" onclick='updateBirthRule(this, 0);'>0</button>
+                                          <button id="inputBirth1" type="checkbox" class="btn" onclick='updateBirthRule(this, 1);'>1</button>
+                                          <button id="inputBirth2" type="checkbox" class="btn" onclick='updateBirthRule(this, 2);'>2</button>
+                                          <button id="inputBirth3" type="checkbox" class="btn" onclick='updateBirthRule(this, 3);'>3</button>
+                                          <button id="inputBirth4" type="checkbox" class="btn" onclick='updateBirthRule(this, 4);'>4</button>
+                                          <button id="inputBirth5" type="checkbox" class="btn" onclick='updateBirthRule(this, 5);'>5</button>
+                                          <button id="inputBirth6" type="checkbox" class="btn" onclick='updateBirthRule(this, 6);'>6</button>
+                                          <button id="inputBirth7" type="checkbox" class="btn" onclick='updateBirthRule(this, 7);'>7</button>
+                                          <button id="inputBirth8" type="checkbox" class="btn" onclick='updateBirthRule(this, 8);'>8</button>
+                                      </span>
+                                  </td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-sm-2">
+                                      <p>Survive conditions</p>
+                                  </td>
+                                  <td class="col-sm-10">
+                                      <span>The number of living neigbors which allows a cell to stay alive</span>
+                                      <hr/>
+                                      <span>
+                                          <button id="inputSurvive0" type="checkbox" class="btn" onclick='updateSurviveRule(this, 0);'>0</button>
+                                          <button id="inputSurvive1" type="checkbox" class="btn" onclick='updateSurviveRule(this, 1);'>1</button>
+                                          <button id="inputSurvive2" type="checkbox" class="btn" onclick='updateSurviveRule(this, 2);'>2</button>
+                                          <button id="inputSurvive3" type="checkbox" class="btn" onclick='updateSurviveRule(this, 3);'>3</button>
+                                          <button id="inputSurvive4" type="checkbox" class="btn" onclick='updateSurviveRule(this, 4);'>4</button>
+                                          <button id="inputSurvive5" type="checkbox" class="btn" onclick='updateSurviveRule(this, 5);'>5</button>
+                                          <button id="inputSurvive6" type="checkbox" class="btn" onclick='updateSurviveRule(this, 6);'>6</button>
+                                          <button id="inputSurvive7" type="checkbox" class="btn" onclick='updateSurviveRule(this, 7);'>7</button>
+                                          <button id="inputSurvive8" type="checkbox" class="btn" onclick='updateSurviveRule(this, 8);'>8</button>
+                                      </span>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </nav>
+          <!-- End sidebar -->
+
+          <!-- Content -->
+          <div class="content">
+              <div class="container">
+
+                  <!-- Jumbotron header -->
+                  <div class="jumbotron" style="text-align:center">
+                      <h1>Cellular Automaton</h1>
+                      <p>A tribute to John Conway</p>
+                  </div>
+
+                  <!-- open sidebar menu -->
+                  <a class="btn btn-primary btn-customized open-menu" href="#" role="button">
+                      <i class="fas fa-align-left"></i> <span>Settings</span>
+                  </a>
+
+                  <!-- The simulation -->
+                  <div class="row">
+                      <h1 id="simulation">Automaton</h1>
+
+                      <div >
+                          <span id="loop-detected-notice" class="invisible">Loop detected.</span>
+                          <span id="loop-size-detected-notice" class="invisible">Loop size:</span>
+                      </div>
+                      <div>
+                          <span>
+                              <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
+                              <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
+                          </span>
+                      </div>
+                      <div id="automaton-content" class="">
+                          <div class="col-md-6" id="canvasDiv"></div>
+                      </div>
+                  </div>
+
+                  <!-- Preset imports and exports -->
+                  <div class="row">
+                      <h1 id="presets">Presets</h1>
+                      <hr/>
+                      <div>
+                          <h2>Save the current configuration.</h2>
+                          <span>The "Save" button add the current configuration to the list of presets.</span>
+                          <span>The "Export" button allows you to download the current configuration as a JSON file.</span>
+                          <form>
+                              <div class="form-group row">
+                                  <label class="col-sm-2 col-form-label">Name</label>
+                                  <div class="col-sm-10">
+                                      <input id="export-name" type="text"/>
                                   </div>
                               </div>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Birth conditions</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>The number of living neigbors which allows a cell to become alive</span>
-                          </td>
-                          <td class="col-sm-3">
-                              <span>
-                                  <button id="inputBirth0" type="checkbox" class="btn" onclick='updateBirthRule(this, 0);'>0</button>
-                                  <button id="inputBirth1" type="checkbox" class="btn" onclick='updateBirthRule(this, 1);'>1</button>
-                                  <button id="inputBirth2" type="checkbox" class="btn" onclick='updateBirthRule(this, 2);'>2</button>
-                                  <button id="inputBirth3" type="checkbox" class="btn" onclick='updateBirthRule(this, 3);'>3</button>
-                                  <button id="inputBirth4" type="checkbox" class="btn" onclick='updateBirthRule(this, 4);'>4</button>
-                                  <button id="inputBirth5" type="checkbox" class="btn" onclick='updateBirthRule(this, 5);'>5</button>
-                                  <button id="inputBirth6" type="checkbox" class="btn" onclick='updateBirthRule(this, 6);'>6</button>
-                                  <button id="inputBirth7" type="checkbox" class="btn" onclick='updateBirthRule(this, 7);'>7</button>
-                                  <button id="inputBirth8" type="checkbox" class="btn" onclick='updateBirthRule(this, 8);'>8</button>
-                              </span>
-                          </td>
-                      </tr>
-                      <tr class="row">
-                          <td class="col-sm-2">
-                              <p>Survive conditions</p>
-                          </td>
-                          <td class="col-sm-7">
-                              <span>The number of living neigbors which allows a cell to stay alive</span>
-                          </td>
-                          <td class="col-sm-3">
-                              <span>
-                                  <button id="inputSurvive0" type="checkbox" class="btn" onclick='updateSurviveRule(this, 0);'>0</button>
-                                  <button id="inputSurvive1" type="checkbox" class="btn" onclick='updateSurviveRule(this, 1);'>1</button>
-                                  <button id="inputSurvive2" type="checkbox" class="btn" onclick='updateSurviveRule(this, 2);'>2</button>
-                                  <button id="inputSurvive3" type="checkbox" class="btn" onclick='updateSurviveRule(this, 3);'>3</button>
-                                  <button id="inputSurvive4" type="checkbox" class="btn" onclick='updateSurviveRule(this, 4);'>4</button>
-                                  <button id="inputSurvive5" type="checkbox" class="btn" onclick='updateSurviveRule(this, 5);'>5</button>
-                                  <button id="inputSurvive6" type="checkbox" class="btn" onclick='updateSurviveRule(this, 6);'>6</button>
-                                  <button id="inputSurvive7" type="checkbox" class="btn" onclick='updateSurviveRule(this, 7);'>7</button>
-                                  <button id="inputSurvive8" type="checkbox" class="btn" onclick='updateSurviveRule(this, 8);'>8</button>
-                              </span>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
+                              <div class="form-group row">
+                                  <label class="col-sm-2 col-form-label">Description</label>
+                                  <div class="col-sm-10">
+                                      <input id="export-description" type="text"/>
+                                  </div>
+                              </div>
 
-          <!-- The simulation -->
-          <div class="row">
-              <h1 id="simulation">Automaton</h1>
-              <div >
-                  <span id="loop-detected-notice" class="invisible">Loop detected.</span>
-                  <span id="loop-size-detected-notice" class="invisible">Loop size:</span>
-              </div>
-              <div>
-                  <span>
-                      <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
-                      <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
-                  </span>
-              </div>
-              <div id="automaton-content" class="">
-                  <div class="col-md-6" id="canvasDiv"></div>
-              </div>
-          </div>
-
-          <!-- Preset imports and exports -->
-          <div class="row">
-              <h1 id="presets">Presets</h1>
-              <hr/>
-              <div>
-                  <h2>Save the current configuration.</h2>
-                  <span>The "Save" button add the current configuration to the list of presets.</span>
-                  <span>The "Export" button allows you to download the current configuration as a JSON file.</span>
-                  <form>
-                      <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Name</label>
-                          <div class="col-sm-10">
-                              <input id="export-name" type="text"/>
-                          </div>
+                              <button id="saveBtn" type="button" class="btn" onclick='savePresetClicked();'>Save</button>
+                              <button id="exportBtn" type="button" class="btn" onclick='exportPresetClicked();'>Export</button>
+                          </form>
                       </div>
-                      <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Description</label>
-                          <div class="col-sm-10">
-                              <input id="export-description" type="text"/>
-                          </div>
-                      </div>
-
-                      <button id="saveBtn" type="button" class="btn" onclick='savePresetClicked();'>Save</button>
-                      <button id="exportBtn" type="button" class="btn" onclick='exportPresetClicked();'>Export</button>
-                  </form>
+                  </div>
               </div>
           </div>
-
       </div>
   </body>
 </html>
