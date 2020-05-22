@@ -5,6 +5,10 @@ function Cell(index, isAlive) {
         0: isAlive
     };
 
+    this.isAlive = () => {
+        return this.states[iterationCpt];
+    };
+
     this.show = (maxAge, iteration) => {
         const {x, y, w, h} = indexToXY(this.index);
         const relativeAge = 76 - map(this.age, 0, maxAge, 0, 76);

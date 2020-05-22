@@ -56,12 +56,11 @@ function draw() {
         // To make sure the algorithm is in O(n) this function is also responsible
         // for the drawing of the cells
         grid.doIteration();
+        updateLoopDetected(grid.foundLoop, grid.foundLoopSize, grid.loopSize);
         iterationCpt++;
     } else {
         cells.forEach(c => c.show(grid.maxAge, iterationCpt));
     }
-
-    updateLoopDetected(grid.foundLoop, grid.foundLoopSize, grid.loopSize);
 
     if (mouseIsPressed) {
         drawCell();
@@ -71,11 +70,9 @@ function draw() {
         randomizeSettings();
     }
 
-
     if (!grid.aliveCells) {
         resetGrid();
     }
-
 
     // Draw FPS at the bottom left of the screen
     let fps = frameRate();
@@ -83,19 +80,4 @@ function draw() {
     stroke(0);
     text("Alive cells: " + grid.aliveCells, 10, height - 25);
     text("FPS: " + fps.toFixed(2), 10, height - 10);
-}
-
-function mousePressed() {
-    // When pressing the mouse to draw cells stop the simulation
-    if (mouseX > 0 && mouseX < D && mouseY > 0 && mouseY < D) {
-        previousRunIteration = settings.runIterations;
-        settings.runIterations = false;
-    }
-}
-
-function mouseReleased() {
-    // When releasing the mouse after drawing cells resume the simulation
-    if (mouseX > 0 && mouseX < D && mouseY > 0 && mouseY < D) {
-        settings.runIterations = previousRunIteration;
-    }
 }

@@ -111,7 +111,7 @@
                                               </div>
                                           </div>
 
-                                          <button id="play-pause-btn" class="btn btn-default" type="button" onclick="toggleRun()"></button>
+                                          <button id="play-pause-btn" class="btn btn-default btn-play-pause" type="button" onclick="toggleRun()"></button>
                                           <button class="btn btn-danger" type="button" onclick="setSize()">Reset</button>
                                       </form>
                                   </td>
@@ -282,6 +282,8 @@
                       </div>
                       <div>
                           <span>
+                              <button id="play-pause-btn" class="btn btn-default btn-play-pause" type="button" onclick="toggleRun()"></button>
+                              <button id="toggleDrawingBtn" type="button" class="btn" onclick='toggleDrawing();'>Enable drawing</button>
                               <button id="pencilBtn" type="button" class="btn" onclick='updateDrawing("PENCIL");'>Pencil</button>
                               <button id="eraserBtn" type="button" class="btn" onclick='updateDrawing("ERASER");'>Eraser</button>
                           </span>

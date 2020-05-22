@@ -50,16 +50,21 @@ const updateInterfaceNeighborsAlgorithmFromValue = () => {
 };
 
 const updateInterfaceDrawingToolsFromValue = () => {
+    const toggleBtn = document.getElementById("toggleDrawingBtn");
     const pencilBtn = document.getElementById("pencilBtn");
     const eraserBtn = document.getElementById("eraserBtn");
 
+    toggleBtn.classList.remove('btn-success');
+    if (settings.drawing) {
+        toggleBtn.classList.add('btn-success');
+    }
     if (settings.drawingTool === 'PENCIL') {
-        pencilBtn.classList.add('btn-success');
-        eraserBtn.classList.remove('btn-success');
+        pencilBtn.classList.add('btn-primary');
+        eraserBtn.classList.remove('btn-primary');
     }
     if (settings.drawingTool === 'ERASER') {
-        pencilBtn.classList.remove('btn-success');
-        eraserBtn.classList.add('btn-success');
+        pencilBtn.classList.remove('btn-primary');
+        eraserBtn.classList.add('btn-primary');
     }
 };
 
@@ -114,6 +119,14 @@ const updateInterfaceRandomizationRulesFromValue = () => {
     }
 };
 
+const updateInterfacePlayPauseBtnFromValue = () => {
+    const buttons = document.getElementsByClassName("btn-play-pause");
+    const value = settings.runIterations ? 'Pause' : 'Play';
+    for (let i=0; i < buttons.length; i++) {
+        buttons[i].textContent = value;
+    }
+};
+
 const updateInterfaceAllItemsFromValue = () => {
     updateInterfaceRulesFromValues();
     updateInterfaceEdgeWrappingFromValue();
@@ -126,11 +139,11 @@ const updateInterfaceAllItemsFromValue = () => {
     updateInterfacePresetsFromValue();
     updateInterfaceRandomizationToggleFromValue();
     updateInterfaceRandomizationRulesFromValue();
+    updateInterfacePlayPauseBtnFromValue();
 };
 
 const initializeInterface = () => {
     updateInterfaceAllItemsFromValue();
-    document.getElementById("play-pause-btn").textContent = 'Pause';
 };
 
 const updateBirthRule = (button, value) => {
@@ -157,7 +170,7 @@ const updateSurviveRule = (button, value) => {
 
 const toggleRun = () => {
     settings.runIterations = !settings.runIterations;
-    document.getElementById("play-pause-btn").textContent = settings.runIterations ? 'Pause' : 'Play';
+    updateInterfacePlayPauseBtnFromValue();
 }
 
 const setSize = () => {
@@ -253,3 +266,8 @@ const updateRandomizationRule = (button, ruleName) => {
 
     updateInterfaceRandomizationRulesFromValue();
 };
+
+const toggleDrawing = () => {
+    settings.drawing = !settings.drawing;
+    updateInterfaceDrawingToolsFromValue();
+}
