@@ -28,6 +28,21 @@ const PRESETS = [
     },
     {
         settings: {
+            name: "Bryan's arrows",
+            description: "Arrow forming automata discovered by Bryan",
+            edgeWrapping: true,
+            loopDetection: true,
+            invertVisualization: false,
+            initialDensity: 50,
+            neighborsToSelect: { NW: true, N: false, NE: false, W: true, E: true, SW: true, S: false, SE: false, SELF: false, },
+            neighborsAlgorithm: "MOORE",
+        },
+        rules: {
+            born: [1, 2], survive: [1, 2, 0]
+        },
+    },
+    {
+        settings: {
             name: 'Dead islands',
             description: 'An automaton island of dead cells which never resurect',
             edgeWrapping: true,
